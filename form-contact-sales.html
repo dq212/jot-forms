@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en-UK" class="supernova">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/cs-bootstrap.css">
+    <link rel="stylesheet" href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/base.css">
+    <link rel="stylesheet"
+        href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/BS5-cs-modal-styles.css">
+    <link rel="stylesheet"
+        href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/BS5-cs-form-styles.css">
+    <link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0095/4332/files/cs-hk-fonts.css?v=1773095116">
+
+    <!-- Turnstile lives here now that we're off Shopify CDN -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+
+    <!-- iframe-resizer child — must load before Prototype.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5"></script>
+
+    <style>
+        html,
+        body {
+            font-size: 20px;
+            background-color: #191919;
+            color: #fff;
+        }
+
+        @media(max-width:767px) {
+
+            html,
+            body {
+                font-size: 16px;
+            }
+        }
+
+        div.checkbox-label label {
+            display: inline-block;
+            margin: 0;
+            color: #fff;
+            padding: 0 0 0 1rem;
+            font-size: 0.625rem !important;
+            line-height: 0.75rem !important;
+        }
+
+        @media (min-width: 468px) and (max-width: 640px) {
+            div.checkbox-label label {
+                font-size: 0.8rem !important;
+                line-height: 1rem !important;
+            }
+        }
+
+        ul.page-section {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .page-section>li:first-child:not(.form-line-column):not([data-type=control_head]):not([data-type=control_payment]):not([data-type=control_text]):not([data-type=control_button]):not([data-type=control_collapse]),
+        .page-section>li:nth-child(2):not(.form-line-column):not([data-type=control_head]):not([data-type=control_payment]):not([data-type=control_text]):not([data-type=control_button]):not([data-type=control_collapse]) {
+            margin-top: 0;
+        }
+
+        .form-all {
+            margin: 0px auto !important;
+            box-shadow: none;
+        }
+
+        .form-label-top,
+        .form-label-left,
+        .form-label-right,
+        .form-html,
+        .form-checkbox-item label,
+        .form-radio-item label {
+            color: #DCDCDE;
+        }
+
+        .form-submit-button-gray-900.submit-button,
+        li[data-type=control_button] button.jf-form-buttons.form-submit-button-gray-900.submit-button {
+            color: #000;
+            border-color: #0a0b0d;
+            background-color: #fff;
+        }
+
+        .form-submit-button-gray-900.submit-button:hover,
+        li[data-type=control_button] button.jf-form-buttons.form-submit-button-gray-900.submit-button:hover {
+            color: #000;
+            border-color: #0a0b0d;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-submit-button-gray-900.submit-button:active,
+        li[data-type=control_button] button.jf-form-buttons.form-submit-button-gray-900.submit-button:active {
+            color: #000;
+            border-color: #0a0b0d;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-line-active {
+            background-color: transparent;
+        }
+
+        .form-line-error {
+            background-color: transparent;
+        }
+
+        .form-line-error input,
+        .form-line-error textarea,
+        .form-line-error select {
+            border: 2px solid #d93025 !important;
+        }
+
+        .form-dropdown:focus,
+        .form-textarea:focus,
+        .form-textbox:focus {
+            border-color: rgba(0, 204, 204, 1);
+            outline: none;
+        }
+
+        .submit-button,
+        .form-checkbox:checked+label:before,
+        .form-checkbox:checked+span:before,
+        .form-radio+label:after,
+        .form-radio+span:after,
+        .rating-item input:checked+label {
+            background-color: #0cc;
+        }
+
+        .form-required {
+            color: #fa2100;
+        }
+
+        .page-section li.form-line-active[data-type=control_button] {
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #555 !important;
+            opacity: 1;
+        }
+
+        .cs-form textarea {
+            padding-top: 1.25rem !important;
+        }
+
+        .form-dropdown:not([size]),
+        .form-textbox {
+            height: 3.8em;
+        }
+
+        .form-dropdown,
+        .form-textarea,
+        .form-textbox,
+        .signature-pad-passive,
+        .signature-wrapper {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #d4d4d4;
+            padding-left: 1rem;
+            outline: none;
+        }
+
+        input,
+        textarea,
+        select {
+            outline: none !important;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none !important;
+        }
+
+        .form-error-message,
+        .error-navigation-message {
+            display: none !important;
+        }
+
+        .form-line-error input,
+        .form-line-error textarea,
+        .form-line-error select {
+            border: 2px solid #d93025 !important;
+        }
+
+        .custom-form-error {
+            display: none;
+            margin-bottom: 0;
+            padding: 0;
+            text-align: center;
+            background: transparent;
+            color: #fa2100;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 0.5rem;
+            font-weight: 700;
+        }
+
+        .custom-form-error.active {
+            display: block;
+        }
+
+        .custom-error {
+            height: 0.8rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #d4d4d4;
+            background-color: #333;
+            background-clip: padding-box;
+            border: 1px solid #444;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 8px;
+            outline: none !important;
+            transition: border-color .15s ease-in-out;
+        }
+
+        .form-control:focus {
+            color: #d4d4d4 !important;
+            background-color: #333 !important;
+            border-color: #a2a2a3 !important;
+            outline: none !important;
+        }
+
+        .jotform-form input:-webkit-autofill,
+        .jotform-form input:-webkit-autofill:hover,
+        .jotform-form input:-webkit-autofill:focus,
+        .jotform-form textarea:-webkit-autofill,
+        .jotform-form select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 10px #333 inset !important;
+            -webkit-text-fill-color: #fff !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .form-radio-item label {
+            vertical-align: top;
+            margin-right: 1rem;
+        }
+
+        input[type=radio] {
+            background: transparent;
+            border: 2px solid #fff;
+            display: inline-block;
+            vertical-align: baseline;
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            margin-right: 10px;
+            text-align: center;
+            font-size: 0.8rem !important;
+            line-height: normal;
+            border-radius: 5px;
+        }
+
+        input[type=radio]:checked {
+            background: transparent;
+            background-image: url("data:image/svg+xml,%3Csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.7357 0.407193L5.32786 9.53566L2.26425 6.20949C2.01227 5.94526 1.67477 5.79905 1.32446 5.80235C0.974147 5.80566 0.639044 5.95821 0.391326 6.22716C0.143608 6.49611 0.00309463 6.85993 5.05069e-05 7.24027C-0.00299362 7.6206 0.131675 7.98702 0.375051 8.2606L4.38326 12.6123C4.63381 12.8843 4.97358 13.037 5.32786 13.037C5.68214 13.037 6.02191 12.8843 6.27246 12.6123L15.6249 2.45831C15.8683 2.18472 16.003 1.81831 15.9999 1.43797C15.9969 1.05763 15.8564 0.693812 15.6087 0.424863C15.361 0.155915 15.0259 0.00335985 14.6755 5.48355e-05C14.3252 -0.00325018 13.9877 0.14296 13.7357 0.407193Z' fill='white'/%3E%3C/svg%3E%0A");
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: transparent;
+            border: 2px solid #fff;
+            display: inline-block;
+            vertical-align: middle;
+            width: 25px;
+            height: 25px;
+            min-width: 25px;
+            padding: 0;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0;
+            outline: none !important;
+        }
+
+        input[type="checkbox"]:checked {
+            background-image: url("data:image/svg+xml,%3Csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.7357 0.407193L5.32786 9.53566L2.26425 6.20949C2.01227 5.94526 1.67477 5.79905 1.32446 5.80235C0.974147 5.80566 0.639044 5.95821 0.391326 6.22716C0.143608 6.49611 0.00309463 6.85993 5.05069e-05 7.24027C-0.00299362 7.6206 0.131675 7.98702 0.375051 8.2606L4.38326 12.6123C4.63381 12.8843 4.97358 13.037 5.32786 13.037C5.68214 13.037 6.02191 12.8843 6.27246 12.6123L15.6249 2.45831C15.8683 2.18472 16.003 1.81831 15.9999 1.43797C15.9969 1.05763 15.8564 0.693812 15.6087 0.424863C15.361 0.155915 15.0259 0.00335985 14.6755 5.48355e-05C14.3252 -0.00325018 13.9877 0.14296 13.7357 0.407193Z' fill='white'/%3E%3C/svg%3E%0A");
+            background-repeat: no-repeat;
+            background-position: center;
+            border-color: #fff;
+        }
+
+        input[type="checkbox"]+label {
+            display: inline-block;
+            color: #a2a2a3;
+            font-size: 0.6rem !important;
+            line-height: 0.7rem !important;
+        }
+
+        input,
+        label {
+            display: inline-block;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'HKGP400';
+        }
+
+        label {
+            position: relative;
+        }
+
+        .form-floating>label {
+            font-family: "HKGP400";
+            position: absolute;
+            left: unset;
+            width: 100%;
+            height: 100%;
+            color: #dcdcde;
+            overflow: hidden;
+            text-align: start;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            pointer-events: none;
+            transform-origin: 0 0;
+            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+            padding: 0.6rem 0.8rem;
+        }
+
+        .form-floating>.form-control,
+        .form-floating>.form-control-plaintext,
+        .form-floating>.form-select {
+            height: calc(3.6rem + 4px);
+            min-height: calc(3.6rem + 4px);
+        }
+
+        .form-floating>.form-control-plaintext~label,
+        .form-floating>.form-control:focus~label,
+        .form-floating>.form-control:not(:placeholder-shown)~label,
+        .form-floating>.form-select~label {
+            color: rgba(255, 255, 255, .65);
+            transform: scale(.85) translateY(-.5rem) translate(.15rem);
+        }
+
+        .form-floating>textarea:focus~label::after,
+        .form-floating>textarea:not(:placeholder-shown)~label::after {
+            position: absolute;
+            inset: 1rem 0.375rem;
+            z-index: -1;
+            height: 1.5em;
+            content: "";
+            background-color: unset;
+        }
+
+        .form-sub-label {
+            margin-top: 0.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.5rem;
+        }
+
+        .always-hidden {
+            display: none !important;
+        }
+
+        .cs-form {
+            font-family: "HKGP400";
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+        }
+
+        .cs-form a {
+            color: #fff;
+        }
+
+        .cs-form a:hover {
+            color: #ffffffb3;
+        }
+
+        .cs-form select {
+            font-family: "HKGP400";
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.28125 7.71875L1.28125 2.71875C0.875 2.34375 0.875 1.6875 1.28125 1.3125C1.65625 0.90625 2.3125 0.90625 2.6875 1.3125L7 5.59375L11.2812 1.3125C11.6562 0.90625 12.3125 0.90625 12.6875 1.3125C13.0938 1.6875 13.0938 2.34375 12.6875 2.71875L7.6875 7.71875C7.3125 8.125 6.65625 8.125 6.28125 7.71875Z' fill='white'/%3E%3C/svg%3E%0A");
+            background-position: 90% 50%;
+            background-repeat: no-repeat;
+            background-color: #333;
+            color: #fff;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 5px;
+            padding-left: 0.5rem;
+            width: 100%;
+            height: 2.7rem;
+            box-sizing: border-box;
+            outline: none !important;
+        }
+
+        .cs-form select option {
+            font-family: "HKGP400";
+            font-size: 1rem;
+            background: #424142;
+            color: #fff;
+        }
+
+        .cs-form hr {
+            margin: 1rem 0;
+            color: #a2a2a3;
+            border: 0;
+            border-top: 1px #a2a2a3 solid;
+            opacity: 0.25;
+        }
+
+        /* Thank you message */
+        .thank-you-msg {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 20rem;
+            color: white;
+            text-align: center;
+            font-family: 'HK Grotesk Pro', Helvetica, Verdana, sans-serif;
+            padding: 2rem;
+        }
+
+        .thank-you-msg.visible {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cs-container supernova cs-form cs-form-iframe" data-iframe-height>
+
+        <script>window.enableEventObserver = true</script>
+        <script>window.enableRenameUploadFile = false</script>
+        <script>window.enableDateFieldSelectInputs = false</script>
+        <script>window.CDN = "https://cdn.jotfor.ms/"</script>
+        <script>window.umdRootPath = "https://cdn.jotfor.ms/s/umd/f7b7725153f/"</script>
+        <script>window.staticRootPath = "https://cdn.jotfor.ms/s/static/af1523a15a6/"</script>
+        <script src="https://cdn.jotfor.ms/s/static/af1523a15a6/static/prototype.forms.js"
+            type="text/javascript"></script>
+        <script src="https://cdn.jotfor.ms/s/static/af1523a15a6/static/jotform.forms.js"
+            type="text/javascript"></script>
+        <script src="https://cdn.jotfor.ms/s/static/af1523a15a6/js/punycode-1.4.1.min.js" type="text/javascript"
+            defer></script>
+        <script src="https://cdn.jotfor.ms/s/static/af1523a15a6/js/vendor/maskedinput_5.0.9.min.js"
+            type="text/javascript"></script>
+        <script src="https://cdn.jotfor.ms/s/umd/f7b7725153f/for-aria-notify-polyfill.js"
+            type="text/javascript"></script>
+        <script src="https://cdn.jotfor.ms/s/umd/f7b7725153f/for-sanitize.js" type="text/javascript"></script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+
+        <script src="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/js/constants.js" defer></script>
+        <script src="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/js/pubsub.js" defer></script>
+        <script src="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/js/global.js" defer></script>
+
+        <script>
+            try {
+                trustedTypes.createPolicy('default', { createHTML: s => s, createScriptURL: s => s, createScript: s => s });
+            } catch (e) { }
+            try {
+                trustedTypes.createPolicy('goog#html', { createHTML: s => s, createScriptURL: s => s, createScript: s => s });
+            } catch (e) { }
+        </script>
+
+        <script type="text/javascript">
+            JotForm.newDefaultTheme = true;
+            JotForm.extendsNewTheme = false;
+            JotForm.singleProduct = false;
+            JotForm.newPaymentUIForNewCreatedForms = false;
+            JotForm.texts = { "confirmEmail": "E-mail does not match", "pleaseWait": "Please wait...", "validateEmail": "You need to validate this e-mail", "confirmClearForm": "Are you sure you want to clear the form", "lessThan": "Your score should be less than or equal to", "incompleteFields": "There are incomplete required fields. Please complete them.", "required": "This field is required.", "requireOne": "At least one field required.", "requireEveryRow": "Every row is required.", "requireEveryCell": "Every cell is required.", "email": "Enter a valid e-mail address", "alphabetic": "This field can only contain letters", "numeric": "This field can only contain numeric values", "alphanumeric": "This field can only contain letters and numbers.", "cyrillic": "This field can only contain cyrillic characters", "url": "This field can only contain a valid URL", "currency": "This field can only contain currency values.", "fillMask": "Field value must fill mask.", "uploadExtensions": "You can only upload following files:", "noUploadExtensions": "File has no extension file type (e.g. .txt, .png, .jpeg)", "uploadFilesize": "File size cannot be bigger than:", "uploadFilesizemin": "File size cannot be smaller than:", "gradingScoreError": "Score total should only be less than or equal to", "inputCarretErrorA": "Input should not be less than the minimum value:", "inputCarretErrorB": "Input should not be greater than the maximum value:", "maxDigitsError": "The maximum digits allowed is", "minCharactersError": "The number of characters should not be less than the minimum value:", "maxCharactersError": "The number of characters should not be more than the maximum value:", "freeEmailError": "Free email accounts are not allowed", "minSelectionsError": "The minimum required number of selections is ", "maxSelectionsError": "The maximum number of selections allowed is ", "pastDatesDisallowed": "Date must not be in the past.", "dateLimited": "This date is unavailable.", "dateInvalid": "This date is not valid. The date format is {format}", "dateInvalidSeparate": "This date is not valid. Enter a valid {element}.", "ageVerificationError": "You must be older than {minAge} years old to submit this form.", "multipleFileUploads_typeError": "{file} has invalid extension. Only {extensions} are allowed.", "multipleFileUploads_sizeError": "{file} is too large, maximum file size is {sizeLimit}.", "multipleFileUploads_minSizeError": "{file} is too small, minimum file size is {minSizeLimit}.", "multipleFileUploads_emptyError": "{file} is empty, please select files again without it.", "multipleFileUploads_uploadFailed": "File upload failed, please remove it and upload the file again.", "multipleFileUploads_onLeave": "The files are being uploaded, if you leave now the upload will be cancelled.", "multipleFileUploads_fileLimitError": "Only {fileLimit} file uploads allowed.", "dragAndDropFilesHere_infoMessage": "Drag and drop files here", "chooseAFile_infoMessage": "Choose a file", "maxFileSize_infoMessage": "Max. file size", "generalError": "There are errors on the form. Please fix them before continuing.", "generalPageError": "There are errors on this page. Please fix them before continuing.", "wordLimitError": "Too many words. The limit is", "wordMinLimitError": "Too few words. The minimum is", "characterLimitError": "Too many Characters. The limit is", "characterMinLimitError": "Too few characters. The minimum is", "ccInvalidNumber": "Credit Card Number is invalid.", "ccInvalidCVC": "CVC number is invalid.", "ccInvalidExpireDate": "Expire date is invalid.", "ccInvalidExpireMonth": "Expiration month is invalid.", "ccInvalidExpireYear": "Expiration year is invalid.", "ccMissingDetails": "Please fill up the credit card details.", "ccMissingProduct": "Please select at least one product.", "ccMissingDonation": "Please enter numeric values for donation amount.", "disallowDecimals": "Please enter a whole number.", "restrictedDomain": "This domain is not allowed", "ccDonationMinLimitError": "Minimum amount is {minAmount} {currency}", "requiredLegend": "All fields marked with * are required and must be filled.", "geoPermissionTitle": "Permission Denied", "geoPermissionDesc": "Check your browser's privacy settings.", "geoNotAvailableTitle": "Position Unavailable", "geoNotAvailableDesc": "Location provider not available. Please enter the address manually.", "geoTimeoutTitle": "Timeout", "geoTimeoutDesc": "Please check your internet connection and try again.", "selectedTime": "Selected Time", "formerSelectedTime": "Former Time", "cancelAppointment": "Cancel Appointment", "cancelSelection": "Cancel Selection", "confirmSelection": "Confirm Selection", "noSlotsAvailable": "No slots available", "slotUnavailable": "{time} on {date} has been selected is unavailable. Please select another slot.", "multipleError": "There are {count} errors on this page. Please correct them before moving on.", "oneError": "There is {count} error on this page. Please correct it before moving on.", "doneMessage": "Well done! All errors are fixed.", "invalidTime": "Enter a valid time", "doneButton": "Done", "reviewSubmitText": "Review and Submit", "nextButtonText": "Next", "prevButtonText": "Previous", "seeErrorsButton": "See Errors", "notEnoughStock": "Not enough stock for the current selection", "notEnoughStock_remainedItems": "Not enough stock for the current selection ({count} items left)", "soldOut": "Sold Out", "justSoldOut": "Just Sold Out", "selectionSoldOut": "Selection Sold Out", "subProductItemsLeft": "({count} items left)", "startButtonText": "START", "submitButtonText": "Submit", "submissionLimit": "Sorry! Only one entry is allowed. <br> Multiple submissions are disabled for this form.", "reviewBackText": "Back to Form", "seeAllText": "See All", "progressMiddleText": "of", "fieldError": "field has an error.", "error": "Error" };
+            JotForm.newPaymentUI = true;
+            JotForm.originalLanguage = "en-UK";
+            JotForm.isFormViewTrackingAllowed = true;
+            JotForm.replaceTagTest = true;
+            JotForm.activeRedirect = "thanktext";
+            JotForm.uploadServerURL = "https://upload.jotform.com/upload";
+            JotForm.setCalculations([{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "15", "equation": "{15}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920829156", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920941798", "conditionTrue": false, "baseField": "15" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "1", "equation": "{1}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920952217", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920995178", "conditionTrue": false, "baseField": "15" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1699293503998", "resultField": "43", "decimalPlaces": "2", "isError": false, "conditionId": "1699293543887", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293589916", "resultField": "44", "decimalPlaces": "2", "isError": false, "conditionId": "1699293588302", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293606498", "resultField": "45", "decimalPlaces": "2", "isError": false, "conditionId": "1699293604935", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293628540", "resultField": "46", "decimalPlaces": "2", "isError": false, "conditionId": "1699293627181", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293651333", "resultField": "47", "decimalPlaces": "2", "isError": false, "conditionId": "1699293650163", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293676803", "resultField": "48", "decimalPlaces": "2", "isError": false, "conditionId": "1699293675171", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293695814", "resultField": "49", "decimalPlaces": "2", "isError": false, "conditionId": "1699293693655", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293711929", "resultField": "50", "decimalPlaces": "2", "isError": false, "conditionId": "1699293710628", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830323144", "resultField": "56", "decimalPlaces": "2", "isError": false, "conditionId": "1742827623397", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830329691", "resultField": "57", "decimalPlaces": "2", "isError": false, "conditionId": "1742827699032", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830335838", "resultField": "58", "decimalPlaces": "2", "isError": false, "conditionId": "1742827713870", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830345491", "resultField": "59", "decimalPlaces": "2", "isError": false, "conditionId": "1742827738595", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830442996", "resultField": "52", "decimalPlaces": "2", "isError": false, "conditionId": "1742827547074", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830450653", "resultField": "53", "decimalPlaces": "2", "isError": false, "conditionId": "1742827551413", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830458063", "resultField": "54", "decimalPlaces": "2", "isError": false, "conditionId": "1742827549624", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986016790", "resultField": "66", "decimalPlaces": "2", "isError": false, "conditionId": "1770986014754", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986040042", "resultField": "67", "decimalPlaces": "2", "isError": false, "conditionId": "1770986038998", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986090305", "resultField": "68", "decimalPlaces": "2", "isError": false, "conditionId": "1770986089194", "conditionTrue": false, "baseField": "27" }]);
+            JotForm.setConditions([{ "action": [{ "id": "action_1742920799416", "visibility": "Require", "field": "15", "isError": false }], "disabled": "1", "id": "1742920808824", "index": "0", "link": "Any", "priority": "0", "terms": [{ "id": "term_1742920799416", "field": "60", "operator": "equals", "value": "Yes", "isError": false }], "type": "require" }, { "action": [{ "id": "action_1742920751415", "visibility": "Show", "isError": false, "field": "15" }], "disabled": "1", "id": "1742920769358", "index": "1", "link": "Any", "priority": "1", "terms": [{ "id": "term_1742920751415", "field": "60", "operator": "equals", "value": "Yes", "isError": false }], "type": "field" }, { "action": [{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "15", "equation": "{15}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920829156", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920941798", "conditionTrue": false, "baseField": "15" }], "id": "1742920941798", "index": "2", "link": "Any", "priority": "2", "terms": [{ "id": "term_1742920829156", "field": "15", "operator": "isFilled", "value": "", "isError": false }], "type": "calculation" }, { "action": [{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "1", "equation": "{1}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920952217", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920995178", "conditionTrue": false, "baseField": "15" }], "id": "1742920995178", "index": "3", "link": "Any", "priority": "3", "terms": [{ "id": "term_1742920952217", "field": "15", "operator": "isEmpty", "value": "", "isError": false }], "type": "calculation" }, { "action": [{ "id": "action_0_1699611952539", "redirect": "https:\/\/www.antonbauer.com\/en\/contact-us\/thank-you\/", "isError": false }], "id": "1699611951316", "index": "25", "link": "Any", "priority": "25", "terms": [{ "id": "term_0_1699611952539", "field": "43", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_0_1699612064921", "redirect": "https:\/\/www.autocue.com\/thank-you\/", "isError": false }], "id": "1699611943225", "index": "26", "link": "Any", "priority": "26", "terms": [{ "id": "term_0_1699612064921", "field": "44", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_0_1699612021845", "redirect": "https:\/\/www.autoscript.tv\/thank-you\/", "isError": false }], "id": "1699612005262", "index": "27", "link": "Any", "priority": "27", "terms": [{ "id": "term_0_1699612021845", "field": "45", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_0_1699612077438", "redirect": "https:\/\/www.litepanels.com\/en\/contact-us\/thank-you\/", "isError": false }], "id": "1699612075570", "index": "28", "link": "Any", "priority": "28", "terms": [{ "id": "term_0_1699612077438", "field": "46", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_0_1699612122613", "redirect": "https:\/\/www.sachtler.com\/en\/contact-us\/thank-you\/", "isError": false }], "id": "1699612121490", "index": "29", "link": "Any", "priority": "29", "terms": [{ "id": "term_0_1699612122613", "field": "49", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_0_1709900053249", "redirect": "https:\/\/www.vinten.com\/en\/sales-enquiries\/thank-you\/", "isError": false }], "id": "1699612436013", "index": "30", "link": "Any", "priority": "30", "terms": [{ "id": "term_0_1709900053249", "field": "50", "operator": "isFilled", "value": "", "isError": false }], "type": "url" }, { "action": [{ "id": "action_1696509343605", "visibility": "Show", "isError": false, "field": "7" }], "disabled": "1", "id": "1696509354427", "index": "31", "link": "Any", "priority": "31", "terms": [{ "id": "term_1696509343605", "field": "6", "operator": "equals", "value": "No - Let Me Choose", "isError": false }], "type": "field" }]);
+            JotForm.submitError = "jumpToFirstError";
+
+            JotForm.init(function () {
+                if (window.JotForm && JotForm.accessible) $('input_15').setAttribute('tabindex', 0);
+                JotForm.setPhoneMaskingValidator('input_71_full', '\u0028\u0023\u0023\u0023\u0029 \u0023\u0023\u0023\u002d\u0023\u0023\u0023\u0023');
+                if (window.JotForm && JotForm.accessible) $('input_13').setAttribute('tabindex', 0);
+                if (window.JotForm && JotForm.accessible) $('input_39').setAttribute('tabindex', 0);
+                if (window.JotForm && JotForm.accessible) $('input_27').setAttribute('tabindex', 0);
+                if (window.JotForm && JotForm.accessible) $('input_61').setAttribute('tabindex', 0);
+                JotForm.alterTexts(undefined);
+            });
+
+            setTimeout(function () {
+                JotForm.paymentExtrasOnTheFly([null, { "description": "", "name": "name", "qid": "1", "text": "Name", "type": "control_fullname" }, { "description": "", "name": "email", "qid": "2", "subLabel": "example@example.com", "text": "Email", "type": "control_email" }, { "description": "", "name": "address", "qid": "3", "text": "Country", "type": "control_address" }, null, { "name": "submit", "qid": "5", "text": "Submit", "type": "control_button" }, { "description": "", "name": "typeA", "qid": "6", "text": "Would you like to hear about news & promotions from all Videndum brands?", "type": "control_radio" }, { "description": "", "name": "typeA7", "qid": "7", "text": "Tick the brands you would like to receive email communications from:", "type": "control_checkbox" }, null, null, null, { "description": "", "name": "phone", "qid": "11", "text": "Phone", "type": "control_phone" }, { "description": "", "name": "state", "qid": "12", "text": "State", "type": "control_address" }, { "description": "", "mde": "No", "name": "typeA13", "qid": "13", "subLabel": "", "text": "Enquiry", "type": "control_textarea", "wysiwyg": "Disable" }, null, { "description": "", "name": "company", "qid": "15", "subLabel": "", "text": "Company", "type": "control_textbox" }, null, null, null, null, null, null, null, null, null, null, null, { "description": "", "name": "source", "qid": "27", "subLabel": "", "text": "Source", "type": "control_textbox" }, null, null, null, null, null, null, null, null, null, null, null, { "description": "", "name": "sku", "qid": "39", "subLabel": "", "text": "Referral Product", "type": "control_textbox" }, null, null, null, { "description": "", "name": "antonbauer", "qid": "43", "text": "Anton\u002FBauer", "type": "control_radio" }, { "description": "", "name": "autocue", "qid": "44", "text": "Autocue", "type": "control_radio" }, { "description": "", "name": "autoscript", "qid": "45", "text": "Autoscript", "type": "control_radio" }, { "description": "", "name": "litepanels", "qid": "46", "text": "Litepanels", "type": "control_radio" }, { "description": "", "name": "oconnor", "qid": "47", "text": "OConnor", "type": "control_radio" }, { "description": "", "name": "quasarScience", "qid": "48", "text": "Quasar Science", "type": "control_radio" }, { "description": "", "name": "sachtler", "qid": "49", "text": "Sachtler", "type": "control_radio" }, { "description": "", "name": "vinten", "qid": "50", "text": "Vinten", "type": "control_radio" }, { "description": "", "name": "pleaseVerify", "qid": "51", "text": "Please verify that you are human", "type": "control_captcha" }, { "description": "", "name": "rycote", "qid": "52", "text": "Rycote", "type": "control_radio" }, { "description": "", "name": "gitzo", "qid": "53", "text": "Savage", "type": "control_radio" }, { "description": "", "name": "lowepro", "qid": "54", "text": "Audix", "type": "control_radio" }, null, { "description": "", "name": "vinten52", "qid": "56", "text": "Manfrotto", "type": "control_radio" }, { "description": "", "name": "gitzo", "qid": "57", "text": "Gitzo", "type": "control_radio" }, { "description": "", "name": "lowepro", "qid": "58", "text": "Lowepro", "type": "control_radio" }, { "description": "", "name": "joby", "qid": "59", "text": "JOBY", "type": "control_radio" }, { "description": "", "name": "typeA60", "qid": "60", "text": "Do you operate as part of a company?", "type": "control_radio" }, { "description": "", "name": "companyFinal", "qid": "61", "subLabel": "", "text": "Company Final", "type": "control_textbox" }, null, null, { "description": "", "name": "typeA64", "qid": "64", "text": "*By checking this box you confirm that you have read and agree to our Terms of Service and Privacy Policy", "type": "control_checkbox" }, null, { "description": "", "name": "teradek", "qid": "66", "text": "Teradek", "type": "control_radio" }, { "description": "", "name": "woodenCamera", "qid": "67", "text": "Wooden Camera", "type": "control_radio" }, { "description": "", "name": "smallhd", "qid": "68", "text": "SmallHD", "type": "control_radio" }, null, null, { "description": "", "name": "phone_full", "qid": "71", "text": "Phone", "type": "control_phone" }]);
+            }, 20);
+        </script>
+
+        <!-- FORM -->
+        <div id="customError" class="custom-error"></div>
+
+        <form class="jotform-form" action="https://eu-submit.jotform.com/submit/260426079571359" method="post"
+            name="form_260426079571359" id="260426079571359" accept-charset="utf-8" autocomplete="on">
+
+            <input type="hidden" name="formID" value="260426079571359" />
+            <input type="hidden" id="JWTContainer" value="" />
+            <input type="hidden" id="cardinalOrderNumber" value="" />
+            <input type="hidden" id="jsExecutionTracker" name="jsExecutionTracker" value="build-date-1777912833623" />
+            <input type="hidden" id="submitSource" name="submitSource" value="unknown" />
+            <input type="hidden" id="submitDate" name="submitDate" value="undefined" />
+            <input type="hidden" id="buildDate" name="buildDate" value="1777912833623" />
+            <input type="hidden" name="uploadServerUrl" value="https://upload.jotform.com/upload" />
+            <input type="hidden" name="eventObserver" value="1" />
+
+            <div role="main" class="form-all">
+                <ul class="form-section page-section" role="presentation">
+
+                    <!-- NAME -->
+                    <li class="form-line jf-required" data-type="control_fullname" id="id_1">
+                        <div id="cid_1" class="form-input-wide jf-required" data-layout="full">
+                            <div aria-labelledby="label_1" role="group" data-wrapper-react="true">
+                                <div class="row mb-4">
+                                    <div class="form-floating col-md-6 mb-md-0 mb-4 pe-2">
+                                        <input type="text" id="first_1" name="q1_name[first]"
+                                            class="form-textbox validate[required] form-control" data-defaultvalue=""
+                                            autoComplete="section-input_1 given-name" size="10" data-component="first"
+                                            placeholder=" " value="" />
+                                        <label class="form-label form-label-top" id="label_1" for="first_1">
+                                            First Name<span class="form-required">*</span></label>
+                                    </div>
+                                    <div class="form-floating col-md-6 ps-md-2">
+                                        <input type="text" id="last_1" name="q1_name[last]"
+                                            class="form-textbox validate[required] form-control" data-defaultvalue=""
+                                            placeholder=" " autoComplete="section-input_1 family-name" size="15"
+                                            data-component="last" value="" />
+                                        <label class="form-label form-label-top" id="sublabel_1_last" for="last_1">
+                                            Last Name<span class="form-required">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- EMAIL AND COUNTRY -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 pe-2">
+                            <li class="form-line form-line-column form-col-1 jf-required" data-type="control_email"
+                                id="id_2">
+                                <div id="cid_2" class="jf-required">
+                                    <div class="form-floating mb-md-0">
+                                        <input type="email" id="input_2" name="q2_email"
+                                            class="form-textbox validate[required, Email] form-control"
+                                            data-defaultvalue="" placeholder=" " autoComplete="section-input_2 email"
+                                            style="width:100%" data-component="email" value="" />
+                                        <label class="form-label form-label-top" id="label_2" for="input_2">
+                                            Email<span class="form-required">*</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="col-md-6 pt-md-0 pt-4 ps-md-2">
+                            <li class="form-line" data-type="control_address" id="id_3">
+                                <div id="cid_3" class="form-input" data-layout="full">
+                                    <div class="form-floating">
+                                        <select class="form-dropdown form-address-country form-control"
+                                            name="q3_address[country]" id="input_3_country" data-component="country"
+                                            required="" autoComplete="section-input_3 country"
+                                            aria-labelledby="sublabel_3_country">
+                                            <option value="">Please Select</option>
+                                            <option value="United States" selected>United States</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Afghanistan">Afghanistan</option>
+                                            <option value="Albania">Albania</option>
+                                            <option value="Algeria">Algeria</option>
+                                            <option value="American Samoa">American Samoa</option>
+                                            <option value="Andorra">Andorra</option>
+                                            <option value="Angola">Angola</option>
+                                            <option value="Argentina">Argentina</option>
+                                            <option value="Armenia">Armenia</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="Austria">Austria</option>
+                                            <option value="Azerbaijan">Azerbaijan</option>
+                                            <option value="The Bahamas">The Bahamas</option>
+                                            <option value="Bahrain">Bahrain</option>
+                                            <option value="Bangladesh">Bangladesh</option>
+                                            <option value="Belgium">Belgium</option>
+                                            <option value="Bolivia">Bolivia</option>
+                                            <option value="Brazil">Brazil</option>
+                                            <option value="Bulgaria">Bulgaria</option>
+                                            <option value="Cambodia">Cambodia</option>
+                                            <option value="Cameroon">Cameroon</option>
+                                            <option value="Chile">Chile</option>
+                                            <option value="China">China</option>
+                                            <option value="Colombia">Colombia</option>
+                                            <option value="Costa Rica">Costa Rica</option>
+                                            <option value="Croatia">Croatia</option>
+                                            <option value="Cuba">Cuba</option>
+                                            <option value="Cyprus">Cyprus</option>
+                                            <option value="Czech Republic">Czech Republic</option>
+                                            <option value="Denmark">Denmark</option>
+                                            <option value="Dominican Republic">Dominican Republic</option>
+                                            <option value="Ecuador">Ecuador</option>
+                                            <option value="Egypt">Egypt</option>
+                                            <option value="Estonia">Estonia</option>
+                                            <option value="Ethiopia">Ethiopia</option>
+                                            <option value="Finland">Finland</option>
+                                            <option value="France">France</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Germany">Germany</option>
+                                            <option value="Ghana">Ghana</option>
+                                            <option value="Greece">Greece</option>
+                                            <option value="Guatemala">Guatemala</option>
+                                            <option value="Honduras">Honduras</option>
+                                            <option value="Hong Kong">Hong Kong</option>
+                                            <option value="Hungary">Hungary</option>
+                                            <option value="Iceland">Iceland</option>
+                                            <option value="India">India</option>
+                                            <option value="Indonesia">Indonesia</option>
+                                            <option value="Iran">Iran</option>
+                                            <option value="Iraq">Iraq</option>
+                                            <option value="Ireland">Ireland</option>
+                                            <option value="Israel">Israel</option>
+                                            <option value="Italy">Italy</option>
+                                            <option value="Jamaica">Jamaica</option>
+                                            <option value="Japan">Japan</option>
+                                            <option value="Jordan">Jordan</option>
+                                            <option value="Kazakhstan">Kazakhstan</option>
+                                            <option value="Kenya">Kenya</option>
+                                            <option value="South Korea">South Korea</option>
+                                            <option value="Kuwait">Kuwait</option>
+                                            <option value="Latvia">Latvia</option>
+                                            <option value="Lebanon">Lebanon</option>
+                                            <option value="Lithuania">Lithuania</option>
+                                            <option value="Luxembourg">Luxembourg</option>
+                                            <option value="Malaysia">Malaysia</option>
+                                            <option value="Malta">Malta</option>
+                                            <option value="Mexico">Mexico</option>
+                                            <option value="Moldova">Moldova</option>
+                                            <option value="Morocco">Morocco</option>
+                                            <option value="Myanmar">Myanmar</option>
+                                            <option value="Nepal">Nepal</option>
+                                            <option value="Netherlands">Netherlands</option>
+                                            <option value="New Zealand">New Zealand</option>
+                                            <option value="Nicaragua">Nicaragua</option>
+                                            <option value="Nigeria">Nigeria</option>
+                                            <option value="Norway">Norway</option>
+                                            <option value="Oman">Oman</option>
+                                            <option value="Pakistan">Pakistan</option>
+                                            <option value="Panama">Panama</option>
+                                            <option value="Paraguay">Paraguay</option>
+                                            <option value="Peru">Peru</option>
+                                            <option value="Philippines">Philippines</option>
+                                            <option value="Poland">Poland</option>
+                                            <option value="Portugal">Portugal</option>
+                                            <option value="Puerto Rico">Puerto Rico</option>
+                                            <option value="Qatar">Qatar</option>
+                                            <option value="Romania">Romania</option>
+                                            <option value="Russia">Russia</option>
+                                            <option value="Saudi Arabia">Saudi Arabia</option>
+                                            <option value="Senegal">Senegal</option>
+                                            <option value="Serbia">Serbia</option>
+                                            <option value="Singapore">Singapore</option>
+                                            <option value="Slovakia">Slovakia</option>
+                                            <option value="Slovenia">Slovenia</option>
+                                            <option value="South Africa">South Africa</option>
+                                            <option value="Spain">Spain</option>
+                                            <option value="Sri Lanka">Sri Lanka</option>
+                                            <option value="Sweden">Sweden</option>
+                                            <option value="Switzerland">Switzerland</option>
+                                            <option value="Taiwan">Taiwan</option>
+                                            <option value="Tanzania">Tanzania</option>
+                                            <option value="Thailand">Thailand</option>
+                                            <option value="Tunisia">Tunisia</option>
+                                            <option value="Turkey">Turkey</option>
+                                            <option value="Uganda">Uganda</option>
+                                            <option value="Ukraine">Ukraine</option>
+                                            <option value="United Arab Emirates">United Arab Emirates</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Uruguay">Uruguay</option>
+                                            <option value="Venezuela">Venezuela</option>
+                                            <option value="Vietnam">Vietnam</option>
+                                            <option value="Yemen">Yemen</option>
+                                            <option value="Zambia">Zambia</option>
+                                            <option value="Zimbabwe">Zimbabwe</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <label class="form-label form-label-top" for="input_3_country"
+                                            id="sublabel_3_country">
+                                            Country<span class="form-required">*</span></label>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+
+                    <!-- COMPANY AND PHONE -->
+                    <div class="row mb-4 mb-md-0">
+                        <div class="col-md-6">
+                            <li class="form-line always-hidden" data-type="control_radio" id="id_60">
+                                <div id="cid_60" class="form-input-wide always-hidden">
+                                    <div class="form-multiple-column" data-columncount="2" role="radiogroup"
+                                        data-component="radio">
+                                        <span class="form-radio-item"><input type="radio" class="form-radio"
+                                                id="input_60_0" name="q60_typeA60" value="Yes" /><label
+                                                for="input_60_0">Yes</label></span>
+                                        <span class="form-radio-item"><input type="radio" class="form-radio"
+                                                id="input_60_1" name="q60_typeA60" value="No" /><label
+                                                for="input_60_1">No</label></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-line fixed-width" data-type="control_textbox" id="id_15">
+                                <div id="cid_15" class="form-input-wide">
+                                    <div class="form-floating">
+                                        <input type="text" id="input_15" placeholder="" name="q15_company"
+                                            data-type="input-textbox" class="form-textbox form-control mb-4"
+                                            data-defaultvalue="" style="width:100%" size="580" data-component="textbox"
+                                            aria-labelledby="label_15" value="" />
+                                        <label class="form-label form-label-top" id="label_15"
+                                            for="input_15">Company</label>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="col-md-6 ps-md-2">
+                            <li class="form-line form-line-column form-col-2" data-type="control_phone" id="id_71">
+                                <div id="cid_71" class="form-input-wide" data-layout="half">
+                                    <span class="form-sub-label-container" style="vertical-align:top">
+                                        <div class="form-floating">
+                                            <input type="tel" id="input_71_full" name="q71_phone_full[full]"
+                                                data-type="mask-number" placeholder=" "
+                                                class="mask-phone-number form-textbox form-control" data-defaultvalue=""
+                                                autocomplete="section-input_71 tel-national" style="width:100%"
+                                                data-masked="true" data-component="phone" value="" inputmode="text"
+                                                maskvalue="(###) ###-####" />
+                                            <label class="form-label form-label-top" for="input_71_full"
+                                                id="sublabel_71_masked">Phone</label>
+                                        </div>
+                                    </span>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+
+                    <!-- MESSAGE -->
+                    <div class="row mb-4">
+                        <li class="form-line jf-required" data-type="control_textarea" id="id_13">
+                            <div id="cid_13" class="form-input-wide" data-layout="full">
+                                <div class="form-floating">
+                                    <textarea id="input_13" placeholder=" "
+                                        class="form-textarea form-control cr-1 validate[required]" name="q13_typeA13"
+                                        style="width:100%; height:88px" data-component="textarea"
+                                        aria-labelledby="label_13"></textarea>
+                                    <label class="form-label form-label-top" id="label_13" for="input_13">
+                                        Your Message<span class="form-required">*</span></label>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+
+                    <!-- HIDDEN BRAND CHECKBOXES -->
+                    <li class="form-line" data-type="control_checkbox" id="id_7">
+                        <div id="cid_7" class="form-input-wide" data-layout="full">
+                            <div class="form-multiple-column d-none" data-columncount="3" role="group"
+                                data-component="checkbox">
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_0" name="q7_typeA7[]" value="Anton Bauer" /><label
+                                        for="input_7_0">Anton Bauer</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_1" name="q7_typeA7[]" value="Audix" /><label
+                                        for="input_7_1">Audix</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_2" name="q7_typeA7[]" value="Autocue" /><label
+                                        for="input_7_2">Autocue</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_3" name="q7_typeA7[]" value="Autoscript" /><label
+                                        for="input_7_3">Autoscript</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_4" name="q7_typeA7[]" value="Gitzo" /><label
+                                        for="input_7_4">Gitzo</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_5" name="q7_typeA7[]" value="Litepanels" /><label
+                                        for="input_7_5">Litepanels</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_6" name="q7_typeA7[]" value="Lowepro" /><label
+                                        for="input_7_6">Lowepro</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_7" name="q7_typeA7[]" value="Manfrotto" /><label
+                                        for="input_7_7">Manfrotto</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_8" name="q7_typeA7[]" value="OConnor" /><label
+                                        for="input_7_8">OConnor</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_9" name="q7_typeA7[]" value="Quasar Science" /><label
+                                        for="input_7_9">Quasar Science</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_10" name="q7_typeA7[]" value="Rycote" /><label
+                                        for="input_7_10">Rycote</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_11" name="q7_typeA7[]" value="Sachtler" /><label
+                                        for="input_7_11">Sachtler</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_12" name="q7_typeA7[]" value="Savage" /><label
+                                        for="input_7_12">Savage</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_13" name="q7_typeA7[]" value="SmallHD" /><label
+                                        for="input_7_13">SmallHD</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_14" name="q7_typeA7[]" value="Teradek" /><label
+                                        for="input_7_14">Teradek</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_15" name="q7_typeA7[]" value="Vinten" /><label
+                                        for="input_7_15">Vinten</label></span>
+                                <span class="form-checkbox-item"><input type="checkbox" class="form-checkbox"
+                                        id="input_7_16" name="q7_typeA7[]" value="Wooden Camera" /><label
+                                        for="input_7_16">Wooden Camera</label></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- OPT-IN, TERMS, TURNSTILE -->
+                    <div class="row mb-8 flex-md-row-reverse align-items-center">
+                        <div class="col-md-6 mb-4 ps-md-4 ps-6">
+                            <input type="radio" class="form-radio aways-hidden d-none" id="input_6_1" name="q6_typeA"
+                                checked="checked" value="No - Let Me Choose" />
+
+                            <li class="form-line mb-4" data-type="control_checkbox" id="id_6">
+                                <div id="custom-radio-wrapper" class="d-flex mb-md-0">
+                                    <div>
+                                        <input type="checkbox"
+                                            class="form-checkbox d-block validate[required] opt-in-checkbox"
+                                            id="opt-in-checkbox" name="opt_in_checkbox" required=""
+                                            value="Opt-In-Checkbox" />
+                                    </div>
+                                    <div class="checkbox-label">
+                                        <label id="label-opt-in-checkbox" class="label-opt-in-checkbox"
+                                            for="opt-in-checkbox"></label>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="form-line jf-required" data-type="control_checkbox" id="id_64">
+                                <div id="cid_64" class="form-input-wide jf-required" data-layout="full">
+                                    <div class="form-single-column" role="group" data-component="checkbox">
+                                        <span class="form-checkbox-item" style="clear:left">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <input type="checkbox"
+                                                        class="form-checkbox validate[required] mb-md-0 mb-4"
+                                                        id="input_64_0" name="q64_typeA64[]" required=""
+                                                        value="Agree" />
+                                                </div>
+                                                <div class="checkbox-label">
+                                                    <label id="label_input_64_0" class="dynamic-privacy-terms"
+                                                        for="input_64_0">
+                                                        By checking this box you confirm that you have read and agree to
+                                                        our Terms of Service and Privacy Policy<span
+                                                            class="form-required">*</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+
+                        <!-- Turnstile lives here — works correctly on Netlify -->
+                        <div class="col-md-6">
+                            <div class="d-flex justify-items-center align-items-center ps-lg-2">
+                                <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAADNX8F30uPsaN81A"
+                                    data-theme="dark" data-size="normal" data-execution="execute"
+                                    data-callback="onTurnstileSuccess" data-error-callback="onTurnstileError">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <div class="row text-center">
+                        <li class="form-line" data-type="control_button" id="id_5">
+                            <div id="cid_5" class="form-input-wide" data-layout="full">
+                                <div data-align="center"
+                                    class="form-buttons-wrapper form-buttons-center jsTest-button-wrapperField">
+                                    <button id="input_5" type="submit" disabled
+                                        class="w-100 form-submit-button form-submit-button-gray-900 submit-button jf-form-buttons jsTest-submitField legacy-submit btn btn-white fw-bold"
+                                        data-component="button" data-content="">Submit</button>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+
+                    <!-- HIDDEN FIELDS -->
+                    <li class="form-line always-hidden" data-type="control_textbox" id="id_39">
+                        <div id="cid_39" class="form-input-wide always-hidden" data-layout="half">
+                            <input type="text" id="input_39" name="q39_sku" class="form-readonly form-textbox"
+                                data-defaultvalue="" style="width:310px" size="310" tabindex="-1"
+                                data-component="textbox" readonly="" value="" />
+                        </div>
+                    </li>
+                    <li class="form-line always-hidden" data-type="control_textbox" id="id_27">
+                        <div id="cid_27" class="form-input-wide always-hidden" data-layout="half">
+                            <input type="text" id="input_27" name="q27_source" class="form-readonly form-textbox"
+                                data-defaultvalue="Teradek Sales Enquiry" style="width:310px" size="310" tabindex="-1"
+                                data-component="textbox" readonly="" value="formSource" />
+                        </div>
+                    </li>
+                    <li class="form-line fixed-width always-hidden" data-type="control_textbox" id="id_61">
+                        <div id="cid_61" class="form-input-wide always-hidden" data-layout="half">
+                            <input type="text" id="input_61" name="q61_companyFinal" class="form-readonly form-textbox"
+                                data-defaultvalue="" style="width:580px" size="580" tabindex="-1"
+                                data-component="textbox" readonly="" value="" />
+                        </div>
+                    </li>
+
+                    <!-- HIDDEN BRAND RADIOS -->
+                    <li class="form-line form-line-column form-col-1 always-hidden" data-type="control_radio"
+                        id="id_43">
+                        <div id="cid_43" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_43_0"
+                                        name="q43_antonbauer" value="True" /><label for="input_43_0">True</label></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-2 always-hidden" data-type="control_radio"
+                        id="id_44">
+                        <div id="cid_44" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_44_0" name="q44_autocue"
+                                        value="True" /><label for="input_44_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-3 always-hidden" data-type="control_radio"
+                        id="id_45">
+                        <div id="cid_45" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_45_0"
+                                        name="q45_autoscript" value="True" /><label for="input_45_0">True</label></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-4 always-hidden" data-type="control_radio"
+                        id="id_46">
+                        <div id="cid_46" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_46_0"
+                                        name="q46_litepanels" value="True" /><label for="input_46_0">True</label></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-5 always-hidden" data-type="control_radio"
+                        id="id_47">
+                        <div id="cid_47" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_47_0" name="q47_oconnor"
+                                        value="True" /><label for="input_47_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-6 always-hidden" data-type="control_radio"
+                        id="id_48">
+                        <div id="cid_48" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_48_0"
+                                        name="q48_quasarScience" value="True" /><label
+                                        for="input_48_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-7 always-hidden" data-type="control_radio"
+                        id="id_49">
+                        <div id="cid_49" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_49_0" name="q49_sachtler"
+                                        value="True" /><label for="input_49_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-8 always-hidden" data-type="control_radio"
+                        id="id_50">
+                        <div id="cid_50" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_50_0" name="q50_vinten"
+                                        value="True" /><label for="input_50_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-9 always-hidden" data-type="control_radio"
+                        id="id_56">
+                        <div id="cid_56" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_56_0" name="q56_vinten52"
+                                        value="True" /><label for="input_56_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-10 always-hidden" data-type="control_radio"
+                        id="id_57">
+                        <div id="cid_57" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_57_0" name="q57_gitzo"
+                                        value="True" /><label for="input_57_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-11 always-hidden" data-type="control_radio"
+                        id="id_58">
+                        <div id="cid_58" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_58_0" name="q58_lowepro"
+                                        value="True" /><label for="input_58_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-12 always-hidden" data-type="control_radio"
+                        id="id_59">
+                        <div id="cid_59" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_59_0" name="q59_joby"
+                                        value="True" /><label for="input_59_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-13 always-hidden" data-type="control_radio"
+                        id="id_52">
+                        <div id="cid_52" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_52_0" name="q52_rycote"
+                                        value="True" /><label for="input_52_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-14 always-hidden" data-type="control_radio"
+                        id="id_53">
+                        <div id="cid_53" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_53_0" name="q53_gitzo"
+                                        value="True" /><label for="input_53_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-15 always-hidden" data-type="control_radio"
+                        id="id_54">
+                        <div id="cid_54" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_54_0" name="q54_lowepro"
+                                        value="True" /><label for="input_54_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-16 always-hidden" data-type="control_radio"
+                        id="id_66">
+                        <div id="cid_66" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_66_0" name="q66_teradek"
+                                        value="True" /><label for="input_66_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-17 always-hidden" data-type="control_radio"
+                        id="id_67">
+                        <div id="cid_67" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_67_0"
+                                        name="q67_woodenCamera" value="True" /><label
+                                        for="input_67_0">True</label></span></div>
+                        </div>
+                    </li>
+                    <li class="form-line form-line-column form-col-18 always-hidden" data-type="control_radio"
+                        id="id_68">
+                        <div id="cid_68" class="form-input-wide always-hidden">
+                            <div class="form-single-column" role="radiogroup"><span class="form-radio-item"><input
+                                        disabled="" type="radio" class="form-radio" id="input_68_0" name="q68_smallhd"
+                                        value="True" /><label for="input_68_0">True</label></span></div>
+                        </div>
+                    </li>
+
+                    <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+                </ul>
+            </div>
+
+            <script>JotForm.showJotFormPowered = "0";</script>
+            <script>JotForm.poweredByText = "Powered by Jotform";</script>
+            <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="260426079571359" />
+            <script type="text/javascript">
+                var all_spc = document.querySelectorAll("form[id='260426079571359'] .si" + "mple" + "_spc");
+                for (var i = 0; i < all_spc.length; i++) {
+                    all_spc[i].value = "260426079571359-260426079571359";
+                }
+            </script>
+        </form>
+
+        <!-- THANK YOU MESSAGE — hidden until form submits successfully -->
+        <div id="thank-you-msg" class="thank-you-msg">
+            <div id="ty-heading" class="fs-1 text-white fw-400" style="margin-bottom:1rem;">Thank You!</div>
+            <div id="ty-body" class="text-gray-3 fs-5 fw-400"></div>
+        </div>
+
+        <script type="text/javascript">JotForm.ownerView = true;</script>
+        <script type="text/javascript">JotForm.forwardToEu = true;</script>
+        <script type="text/javascript">JotForm.isNewSACL = true;</script>
+
+    </div>
+
+    <!-- ALL LOGIC -->
+    <script>
+
+        // ============================================================
+        // CONFIG — read from URL params (primary method)
+        // postMessage version is commented out below for easy switching
+        // ============================================================
+        var config = (function () {
+            var params = new URLSearchParams(window.location.search);
+            return {
+                domain: params.get('domain') || 'teradek.com',
+                formSource: params.get('source') || 'Teradek Sales Enquiry',
+                isDownload: params.get('isDownload') === 'true',
+                tyHeading: params.get('tyHeading') || 'Thank You!',
+                tyMsg: params.get('tyMsg') || 'Someone from our team will be in touch with you shortly.',
+                downloadUrl: params.get('downloadUrl') || ''
+            };
+        })();
+
+        /*
+        // ============================================================
+        // CONFIG — postMessage version (commented out, keep for reference)
+        // To switch: comment out URL params block above, uncomment this,
+        // and update onReady in the parent iframeResize call
+        // ============================================================
+        var config = {
+          domain: 'teradek.com',
+          formSource: 'Teradek Sales Enquiry',
+          isDownload: false,
+          tyHeading: 'Thank You!',
+          tyMsg: 'Someone from our team will be in touch with you shortly.',
+          downloadUrl: ''
+        };
+    
+        window.iFrameResizer = {
+          onMessage: function(data) {
+            if (data.action === 'initConfig') {
+              config = Object.assign(config, data.config);
+              applyConfig();
+            }
+          }
+        };
+        */
+
+        // ============================================================
+        // DOMAIN MAP
+        // ============================================================
+        var domainMap = {
+            'teradek.com': { host: 'Teradek', privacy: 'https://teradek.com/pages/privacy-policy', terms: 'https://teradek.com/pages/standard-terms-of-sale' },
+            'smallhd.com': { host: 'SmallHD', privacy: 'https://link.cs.inc/shd-priv', terms: 'https://link.cs.inc/shd-terms' },
+            'woodencamera.com': { host: 'Wooden Camera', privacy: 'https://woodencamera.com/pages/privacy-policy', terms: 'https://woodencamera.com/pages/standard-terms-of-sale' }
+        };
+
+        // ============================================================
+        // APPLY CONFIG
+        // ============================================================
+        function applyConfig() {
+            var site = domainMap[config.domain] || domainMap['teradek.com'];
+
+            var optInLabel = document.querySelector('.label-opt-in-checkbox');
+            if (optInLabel) {
+                optInLabel.innerHTML = 'Sign me up to receive emails about events, promotions and marketing communications from ' + site.host + '<span class="form-required">*</span>';
+            }
+
+            var privacyLabel = document.querySelector('.dynamic-privacy-terms');
+            if (privacyLabel) {
+                privacyLabel.innerHTML = 'By checking this box you confirm that you have read and agree to our <a href="' + site.terms + '" target="_top">Terms of Service</a> and <a href="' + site.privacy + '" target="_top">Privacy Policy</a>.<span class="form-required">*</span>';
+            }
+
+            var sourceField = document.getElementById('input_27');
+            if (sourceField) sourceField.value = config.formSource;
+
+            var optInCheckbox = document.querySelector('.opt-in-checkbox');
+            var brandCheckboxes = document.querySelectorAll('input[type="checkbox"][name="q7_typeA7[]"][value="' + site.host + '"]');
+            if (optInCheckbox) {
+                optInCheckbox.addEventListener('change', function () {
+                    for (var i = 0; i < brandCheckboxes.length; i++) {
+                        brandCheckboxes[i].checked = this.checked;
+                    }
+                });
+            }
+
+            if (window.turnstile) {
+                turnstile.execute('#turnstile-widget');
+            }
+        }
+
+        // ============================================================
+        // THANK YOU MESSAGE
+        // ============================================================
+        function showThankYou() {
+            var form = document.getElementById('260426079571359');
+            var errorDiv = document.getElementById('customError');
+            if (form) form.style.display = 'none';
+            if (errorDiv) errorDiv.style.display = 'none';
+
+            var tyHeading = document.getElementById('ty-heading');
+            var tyBody = document.getElementById('ty-body');
+
+            if (tyHeading) tyHeading.textContent = config.tyHeading;
+
+            if (tyBody) {
+                if (config.isDownload) {
+                    tyBody.innerHTML = 'Your download will begin shortly.<br>If it does not start automatically, <a class="text-gray-3" href="' + config.downloadUrl + '" target="_top">click here</a>.';
+                    setTimeout(function () {
+                        if (config.downloadUrl) window.top.location.href = config.downloadUrl;
+                    }, 2000);
+                } else {
+                    tyBody.textContent = config.tyMsg;
+                }
+            }
+
+            var tyMsg = document.getElementById('thank-you-msg');
+            if (tyMsg) tyMsg.classList.add('visible');
+        }
+
+        // ============================================================
+        // TURNSTILE
+        // ============================================================
+        function onTurnstileSuccess(token) {
+            document.getElementById('input_5').removeAttribute('disabled');
+        }
+
+        function onTurnstileError() {
+            if (window.turnstile) turnstile.reset('#turnstile-widget');
+        }
+
+        // ============================================================
+        // SUBMISSION DETECTION via JotForm postMessage
+        // ============================================================
+        window.addEventListener('message', function (e) {
+            if (!e.data) return;
+
+            // Temporary debug log — remove after confirming correct action name
+            console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
+
+            if (
+                e.data.action === 'submission-completed' ||
+                e.data.action === 'thankYou' ||
+                (e.data.formID === '260426079571359' && e.data.action)
+            ) {
+                showThankYou();
+            }
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        window.addEventListener('load', function () {
+            applyConfig();
+        });
+
+        // ============================================================
+        // ERROR MESSAGING
+        // ============================================================
+        window.addEventListener('load', function () {
+            var jform = document.getElementById('260426079571359');
+            var errorHolder = document.getElementById('customError');
+            if (!jform || !errorHolder) return;
+
+            var globalError = document.createElement('div');
+            globalError.className = 'custom-form-error';
+            globalError.textContent = 'Please correct the errors below:';
+            errorHolder.appendChild(globalError);
+
+            function updateGlobalError() {
+                var hasErrors = jform.querySelector('.form-line-error');
+                globalError.className = hasErrors ? 'custom-form-error active' : 'custom-form-error';
+            }
+
+            if (window.MutationObserver) {
+                new MutationObserver(updateGlobalError).observe(jform, {
+                    childList: true, subtree: true, attributes: true, attributeFilter: ['class']
+                });
+            }
+
+            jform.addEventListener('input', function () { setTimeout(updateGlobalError, 50); });
+            jform.addEventListener('change', function () { setTimeout(updateGlobalError, 50); });
+        });
+
+    </script>
+
+</body>
+
+</html>
