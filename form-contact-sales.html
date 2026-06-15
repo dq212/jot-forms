@@ -1115,204 +1115,256 @@
 
     </div>
 
-    <!-- ALL LOGIC -->
     <script>
-
         // ============================================================
-        // CONFIG — read from URL params (primary method)
-        // postMessage version is commented out below for easy switching
-        // ============================================================
-        var config = (function () {
-            var params = new URLSearchParams(window.location.search);
-            return {
-                domain: params.get('domain') || 'teradek.com',
-                formSource: params.get('source') || 'Teradek Sales Enquiry',
-                isDownload: params.get('isDownload') === 'true',
-                tyHeading: params.get('tyHeading') || 'Thank You!',
-                tyMsg: params.get('tyMsg') || 'Someone from our team will be in touch with you shortly.',
-                downloadUrl: params.get('downloadUrl') || ''
-            };
-        })();
+    // CONFIG — read from URL params (primary method)
+    // postMessage version is commented out below for easy switching
+    // ============================================================
+    var config = (function() {
+      var params = new URLSearchParams(window.location.search);
+      return {
+        domain:      params.get('domain')      || 'teradek.com',
+        formSource:  params.get('source')      || 'Teradek Sales Enquiry',
+        isDownload:  params.get('isDownload')  === 'true',
+        tyHeading:   params.get('tyHeading')   || 'Thank You!',
+        tyMsg:       params.get('tyMsg')       || 'Someone from our team will be in touch with you shortly.',
+        downloadUrl: params.get('downloadUrl') || ''
+      };
+    })();
 
-        /*
-        // ============================================================
-        // CONFIG — postMessage version (commented out, keep for reference)
-        // To switch: comment out URL params block above, uncomment this,
-        // and update onReady in the parent iframeResize call
-        // ============================================================
-        var config = {
-          domain: 'teradek.com',
-          formSource: 'Teradek Sales Enquiry',
-          isDownload: false,
-          tyHeading: 'Thank You!',
-          tyMsg: 'Someone from our team will be in touch with you shortly.',
-          downloadUrl: ''
-        };
-    
-        window.iFrameResizer = {
-          onMessage: function(data) {
-            if (data.action === 'initConfig') {
-              config = Object.assign(config, data.config);
-              applyConfig();
-            }
-          }
-        };
-        */
+    /*
+    // ============================================================
+    // CONFIG — postMessage version (commented out, keep for reference)
+    // ============================================================
+    var config = {
+      domain: 'teradek.com',
+      formSource: 'Teradek Sales Enquiry',
+      isDownload: false,
+      tyHeading: 'Thank You!',
+      tyMsg: 'Someone from our team will be in touch with you shortly.',
+      downloadUrl: ''
+    };
 
-        // ============================================================
-        // DOMAIN MAP
-        // ============================================================
-        var domainMap = {
-            'teradek.com': { host: 'Teradek', privacy: 'https://teradek.com/pages/privacy-policy', terms: 'https://teradek.com/pages/standard-terms-of-sale' },
-            'smallhd.com': { host: 'SmallHD', privacy: 'https://link.cs.inc/shd-priv', terms: 'https://link.cs.inc/shd-terms' },
-            'woodencamera.com': { host: 'Wooden Camera', privacy: 'https://woodencamera.com/pages/privacy-policy', terms: 'https://woodencamera.com/pages/standard-terms-of-sale' }
-        };
-
-        // ============================================================
-        // APPLY CONFIG
-        // ============================================================
-        function applyConfig() {
-            var site = domainMap[config.domain] || domainMap['teradek.com'];
-
-            var optInLabel = document.querySelector('.label-opt-in-checkbox');
-            if (optInLabel) {
-                optInLabel.innerHTML = 'Sign me up to receive emails about events, promotions and marketing communications from ' + site.host + '<span class="form-required">*</span>';
-            }
-
-            var privacyLabel = document.querySelector('.dynamic-privacy-terms');
-            if (privacyLabel) {
-                privacyLabel.innerHTML = 'By checking this box you confirm that you have read and agree to our <a href="' + site.terms + '" target="_top">Terms of Service</a> and <a href="' + site.privacy + '" target="_top">Privacy Policy</a>.<span class="form-required">*</span>';
-            }
-
-            var sourceField = document.getElementById('input_27');
-            if (sourceField) sourceField.value = config.formSource;
-
-            var optInCheckbox = document.querySelector('.opt-in-checkbox');
-            var brandCheckboxes = document.querySelectorAll('input[type="checkbox"][name="q7_typeA7[]"][value="' + site.host + '"]');
-            if (optInCheckbox) {
-                optInCheckbox.addEventListener('change', function () {
-                    for (var i = 0; i < brandCheckboxes.length; i++) {
-                        brandCheckboxes[i].checked = this.checked;
-                    }
-                });
-            }
-
-            if (window.turnstile) {
-                turnstile.execute('#turnstile-widget');
-            }
+    window.iFrameResizer = {
+      onMessage: function(data) {
+        if (data.action === 'initConfig') {
+          config = Object.assign(config, data.config);
+          applyConfig();
         }
+      }
+    };
+    */
 
-        // ============================================================
-        // THANK YOU MESSAGE
-        // ============================================================
-        function showThankYou() {
-            var form = document.getElementById('260426079571359');
-            var errorDiv = document.getElementById('customError');
-            if (form) form.style.display = 'none';
-            if (errorDiv) errorDiv.style.display = 'none';
+    // ============================================================
+    // DOMAIN MAP
+    // ============================================================
+    var domainMap = {
+      'teradek.com':      { host: 'Teradek',      privacy: 'https://teradek.com/pages/privacy-policy',      terms: 'https://teradek.com/pages/standard-terms-of-sale' },
+      'smallhd.com':      { host: 'SmallHD',       privacy: 'https://link.cs.inc/shd-priv',                  terms: 'https://link.cs.inc/shd-terms' },
+      'woodencamera.com': { host: 'Wooden Camera', privacy: 'https://woodencamera.com/pages/privacy-policy', terms: 'https://woodencamera.com/pages/standard-terms-of-sale' }
+    };
 
-            var tyHeading = document.getElementById('ty-heading');
-            var tyBody = document.getElementById('ty-body');
+    // ============================================================
+    // APPLY CONFIG
+    // ============================================================
+    function applyConfig() {
+      var site = domainMap[config.domain] || domainMap['teradek.com'];
 
-            if (tyHeading) tyHeading.textContent = config.tyHeading;
+      var optInLabel = document.querySelector('.label-opt-in-checkbox');
+      if (optInLabel) {
+        optInLabel.innerHTML = 'Sign me up to receive emails about events, promotions and marketing communications from ' + site.host + '<span class="form-required">*</span>';
+      }
 
-            if (tyBody) {
-                if (config.isDownload) {
-                    tyBody.innerHTML = 'Your download will begin shortly.<br>If it does not start automatically, <a class="text-gray-3" href="' + config.downloadUrl + '" target="_top">click here</a>.';
-                    setTimeout(function () {
-                        if (config.downloadUrl) window.top.location.href = config.downloadUrl;
-                    }, 2000);
-                } else {
-                    tyBody.textContent = config.tyMsg;
-                }
-            }
+      var privacyLabel = document.querySelector('.dynamic-privacy-terms');
+      if (privacyLabel) {
+        privacyLabel.innerHTML = 'By checking this box you confirm that you have read and agree to our <a href="' + site.terms + '" target="_top">Terms of Service</a> and <a href="' + site.privacy + '" target="_top">Privacy Policy</a>.<span class="form-required">*</span>';
+      }
 
-            var tyMsg = document.getElementById('thank-you-msg');
-            if (tyMsg) tyMsg.classList.add('visible');
-        }
+      var sourceField = document.getElementById('input_27');
+      if (sourceField) sourceField.value = config.formSource;
 
-        // ============================================================
-        // TURNSTILE
-        // ============================================================
-        function onTurnstileSuccess(token) {
-            document.getElementById('input_5').removeAttribute('disabled');
-        }
-
-        function onTurnstileError() {
-            if (window.turnstile) turnstile.reset('#turnstile-widget');
-        }
-
-        // ============================================================
-        // SUBMISSION DETECTION
-        // Primary: hidden iframe load after submit
-        // Fallback: JotForm postMessage (may not fire due to redirect)
-        // ============================================================
-        window.addEventListener('load', function() {
-          var submitTarget = document.getElementById('jotform-submit-target');
-          var form = document.getElementById('260426079571359');
-          if (!submitTarget || !form) return;
-        
-          var formSubmitted = false;
-        
-          form.addEventListener('submit', function() {
-            formSubmitted = true;
-          });
-        
-          submitTarget.addEventListener('load', function() {
-            if (!formSubmitted) return;
-            console.log('[CHILD] hidden iframe loaded after submit — showing thank you');
-            setTimeout(showThankYou, 300);
-          });
-        });
-        
-        // Fallback: JotForm postMessage
-        window.addEventListener('message', function(e) {
-          if (!e.data || typeof e.data !== 'object') return;
-          console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
-        
-          if (
-            e.data.action === 'submission-completed' ||
-            e.data.action === 'thankYou'
-          ) {
-            showThankYou();
+      var optInCheckbox = document.querySelector('.opt-in-checkbox');
+      var brandCheckboxes = document.querySelectorAll('input[type="checkbox"][name="q7_typeA7[]"][value="' + site.host + '"]');
+      if (optInCheckbox) {
+        optInCheckbox.addEventListener('change', function() {
+          for (var i = 0; i < brandCheckboxes.length; i++) {
+            brandCheckboxes[i].checked = this.checked;
           }
         });
+      }
 
-        // ============================================================
-        // INIT
-        // ============================================================
-        window.addEventListener('load', function () {
-            applyConfig();
-        });
+      if (window.turnstile) {
+        turnstile.execute('#turnstile-widget');
+      }
+    }
 
-        // ============================================================
-        // ERROR MESSAGING
-        // ============================================================
-        window.addEventListener('load', function () {
-            var jform = document.getElementById('260426079571359');
-            var errorHolder = document.getElementById('customError');
-            if (!jform || !errorHolder) return;
+    // ============================================================
+    // THANK YOU MESSAGE
+    // ============================================================
+    function showThankYou() {
+      var form = document.getElementById('260426079571359');
+      var errorDiv = document.getElementById('customError');
+      if (form) form.style.display = 'none';
+      if (errorDiv) errorDiv.style.display = 'none';
 
-            var globalError = document.createElement('div');
-            globalError.className = 'custom-form-error';
-            globalError.textContent = 'Please correct the errors below:';
-            errorHolder.appendChild(globalError);
+      var tyHeading = document.getElementById('ty-heading');
+      var tyBody    = document.getElementById('ty-body');
 
-            function updateGlobalError() {
-                var hasErrors = jform.querySelector('.form-line-error');
-                globalError.className = hasErrors ? 'custom-form-error active' : 'custom-form-error';
+      if (tyHeading) tyHeading.textContent = config.tyHeading;
+
+      if (tyBody) {
+        if (config.isDownload) {
+          tyBody.innerHTML = 'Your download will begin shortly.<br>If it does not start automatically, <a class="text-gray-3" href="' + config.downloadUrl + '" target="_top">click here</a>.';
+          setTimeout(function() {
+            if (config.downloadUrl) window.top.location.href = config.downloadUrl;
+          }, 2000);
+        } else {
+          tyBody.textContent = config.tyMsg;
+        }
+      }
+
+      var tyMsg = document.getElementById('thank-you-msg');
+      if (tyMsg) tyMsg.classList.add('visible');
+    }
+
+    // ============================================================
+    // TURNSTILE
+    // ============================================================
+    function onTurnstileSuccess(token) {
+      document.getElementById('input_5').removeAttribute('disabled');
+    }
+
+    function onTurnstileError() {
+      if (window.turnstile) turnstile.reset('#turnstile-widget');
+    }
+
+    // ============================================================
+    // SUBMISSION DETECTION
+    // Primary: hidden iframe load after submit
+    // Fallback: JotForm postMessage
+    // ============================================================
+    window.addEventListener('load', function() {
+      var submitTarget = document.getElementById('jotform-submit-target');
+      var form = document.getElementById('260426079571359');
+      if (!submitTarget || !form) return;
+
+      var formSubmitted = false;
+
+      form.addEventListener('submit', function() {
+        formSubmitted = true;
+      });
+
+      submitTarget.addEventListener('load', function() {
+        if (!formSubmitted) return;
+        console.log('[CHILD] hidden iframe loaded after submit — showing thank you');
+        setTimeout(showThankYou, 300);
+      });
+    });
+
+    // JotForm postMessage fallback
+    window.addEventListener('message', function(e) {
+      if (!e.data || typeof e.data !== 'object') return;
+      console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
+
+      if (
+        e.data.action === 'submission-completed' ||
+        e.data.action === 'thankYou'
+      ) {
+        showThankYou();
+      }
+
+      // Re-enable submit and reset Turnstile on validation error
+      if (e.data.action === 'submission-error') {
+        document.getElementById('input_5').removeAttribute('disabled');
+        if (window.turnstile) turnstile.reset('#turnstile-widget');
+      }
+    });
+
+    // ============================================================
+    // PRE-SUBMIT VALIDATION
+    // ============================================================
+    window.addEventListener('load', function() {
+      var form = document.getElementById('260426079571359');
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        var errors = false;
+        var requiredFields = ['first_1', 'last_1', 'input_2', 'input_13'];
+
+        for (var i = 0; i < requiredFields.length; i++) {
+          var el = document.getElementById(requiredFields[i]);
+          if (!el) continue;
+          var val = el.value ? el.value.trim() : '';
+          if (!val) {
+            errors = true;
+            el.style.border = '2px solid #d93025';
+            var node = el.parentNode;
+            while (node && node.tagName !== 'LI') node = node.parentNode;
+            if (node) {
+              var cls = node.className || '';
+              if (cls.indexOf('form-line-error') === -1) {
+                node.className = cls + ' form-line-error';
+              }
             }
-
-            if (window.MutationObserver) {
-                new MutationObserver(updateGlobalError).observe(jform, {
-                    childList: true, subtree: true, attributes: true, attributeFilter: ['class']
-                });
+          } else {
+            el.style.border = '';
+            var node = el.parentNode;
+            while (node && node.tagName !== 'LI') node = node.parentNode;
+            if (node) {
+              node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
             }
+          }
+        }
 
-            jform.addEventListener('input', function () { setTimeout(updateGlobalError, 50); });
-            jform.addEventListener('change', function () { setTimeout(updateGlobalError, 50); });
-        });
+        if (errors) {
+          e.preventDefault();
+          e.stopPropagation();
+          var globalError = document.querySelector('.custom-form-error');
+          if (globalError) globalError.className = 'custom-form-error active';
+          return false;
+        }
+      });
 
+      // Clear errors on input
+      var fields = ['first_1', 'last_1', 'input_2', 'input_13'];
+      for (var i = 0; i < fields.length; i++) {
+        (function(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener('input', function() {
+            if (this.value.trim()) {
+              this.style.border = '';
+              var node = this.parentNode;
+              while (node && node.tagName !== 'LI') node = node.parentNode;
+              if (node) node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
+              var hasErrors = document.querySelector('.form-line-error');
+              var globalError = document.querySelector('.custom-form-error');
+              if (globalError) globalError.className = hasErrors ? 'custom-form-error active' : 'custom-form-error';
+            }
+          });
+        })(fields[i]);
+      }
+    });
+
+    // ============================================================
+    // ERROR MESSAGING — create global error div on load
+    // ============================================================
+    window.addEventListener('load', function() {
+      var errorHolder = document.getElementById('customError');
+      if (!errorHolder) return;
+
+      var globalError = document.createElement('div');
+      globalError.className = 'custom-form-error';
+      globalError.textContent = 'Please correct the errors below:';
+      errorHolder.appendChild(globalError);
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    window.addEventListener('load', function() {
+      applyConfig();
+    });
     </script>
 <iframe name="jotform-submit-target" id="jotform-submit-target" style="display:none;"></iframe>
 </body>
