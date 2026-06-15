@@ -1283,47 +1283,59 @@
     // ============================================================
     // PRE-SUBMIT VALIDATION
     // ============================================================
-    window.addEventListener('load', function() {
+   window.addEventListener('load', function() {
       var form = document.getElementById('260426079571359');
-      if (!form) return;
-
-      form.addEventListener('submit', function(e) {
-        var errors = false;
-        var requiredFields = ['first_1', 'last_1', 'input_2', 'input_13'];
-
-        for (var i = 0; i < requiredFields.length; i++) {
-          var el = document.getElementById(requiredFields[i]);
-          if (!el) continue;
-          var val = el.value ? el.value.trim() : '';
-          if (!val) {
-            errors = true;
-            el.style.border = '2px solid #d93025';
-            var node = el.parentNode;
-            while (node && node.tagName !== 'LI') node = node.parentNode;
-            if (node) {
-              var cls = node.className || '';
-              if (cls.indexOf('form-line-error') === -1) {
-                node.className = cls + ' form-line-error';
+      if (form) {
+        var originalOnsubmit = form.onsubmit;
+        form.onsubmit = function(e) {
+          console.log('[CHILD] onsubmit fired');
+          var errors = false;
+          var requiredFields = ['first_1', 'last_1', 'input_2', 'input_13'];
+    
+          for (var i = 0; i < requiredFields.length; i++) {
+            var el = document.getElementById(requiredFields[i]);
+            if (!el) continue;
+            var val = el.value ? el.value.trim() : '';
+            if (!val) {
+              errors = true;
+              el.style.border = '2px solid #d93025';
+              var node = el.parentNode;
+              while (node && node.tagName !== 'LI') node = node.parentNode;
+              if (node) {
+                var cls = node.className || '';
+                if (cls.indexOf('form-line-error') === -1) {
+                  node.className = cls + ' form-line-error';
+                }
+              }
+            } else {
+              el.style.border = '';
+              var node = el.parentNode;
+              while (node && node.tagName !== 'LI') node = node.parentNode;
+              if (node) {
+                node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
               }
             }
-          } else {
-            el.style.border = '';
-            var node = el.parentNode;
-            while (node && node.tagName !== 'LI') node = node.parentNode;
-            if (node) {
-              node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
-            }
           }
-        }
-
-        if (errors) {
-          e.preventDefault();
-          e.stopPropagation();
-          var globalError = document.querySelector('.custom-form-error');
-          if (globalError) globalError.className = 'custom-form-error active';
-          return false;
-        }
-      }, true);
+    
+          if (errors) {
+            console.log('[CHILD] validation failed, blocking submit');
+            var globalError = document.querySelector('.custom-form-error');
+            if (globalError) globalError.className = 'custom-form-error active';
+            document.getElementById('input_5').removeAttribute('disabled');
+            return false;
+          }
+    
+          console.log('[CHILD] validation passed, calling original onsubmit');
+          // Call JotForm's original onsubmit
+          if (typeof testSubmitFunction !== 'undefined') {
+            return testSubmitFunction();
+          }
+          return true;
+        };
+      }
+    
+      applyConfig();
+    });
 
       // Clear errors on input
       var fields = ['first_1', 'last_1', 'input_2', 'input_13'];
