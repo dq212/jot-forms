@@ -1239,19 +1239,17 @@
         // ============================================================
         // SUBMISSION DETECTION via JotForm postMessage
         // ============================================================
-        window.addEventListener('message', function (e) {
-            if (!e.data) return;
-
-            // Temporary debug log — remove after confirming correct action name
-            console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
-
-            if (
-                e.data.action === 'submission-completed' ||
-                e.data.action === 'thankYou' ||
-                (e.data.formID === '260426079571359' && e.data.action)
-            ) {
-                showThankYou();
-            }
+        window.addEventListener('message', function(e) {
+          if (!e.data || typeof e.data !== 'object') return;
+        
+          console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
+        
+          if (
+            e.data.action === 'submission-completed' ||
+            e.data.action === 'thankYou'
+          ) {
+            showThankYou();
+          }
         });
 
         // ============================================================
