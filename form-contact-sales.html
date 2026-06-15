@@ -444,7 +444,7 @@
 
 <body>
 
-    <div class="cs-container supernova cs-form cs-form-iframe" data-iframe-height>
+    <div class="cs-container supernova cs-form cs-form-iframe" data-iframe-size>
 
         <script>window.enableEventObserver = true</script>
         <script>window.enableRenameUploadFile = false</script>
@@ -517,8 +517,14 @@
         <!-- FORM -->
         <div id="customError" class="custom-error"></div>
 
-        <form class="jotform-form" action="https://eu-submit.jotform.com/submit/260426079571359" method="post"
-            name="form_260426079571359" id="260426079571359" accept-charset="utf-8" autocomplete="on">
+        <form class="jotform-form"
+              action="https://eu-submit.jotform.com/submit/260426079571359"
+              method="post"
+              name="form_260426079571359"
+              id="260426079571359"
+              accept-charset="utf-8"
+              autocomplete="on"
+              target="jotform-submit-target">
 
             <input type="hidden" name="formID" value="260426079571359" />
             <input type="hidden" id="JWTContainer" value="" />
@@ -1237,11 +1243,31 @@
         }
 
         // ============================================================
-        // SUBMISSION DETECTION via JotForm postMessage
+        // SUBMISSION DETECTION
+        // Primary: hidden iframe load after submit
+        // Fallback: JotForm postMessage (may not fire due to redirect)
         // ============================================================
+        window.addEventListener('load', function() {
+          var submitTarget = document.getElementById('jotform-submit-target');
+          var form = document.getElementById('260426079571359');
+          if (!submitTarget || !form) return;
+        
+          var formSubmitted = false;
+        
+          form.addEventListener('submit', function() {
+            formSubmitted = true;
+          });
+        
+          submitTarget.addEventListener('load', function() {
+            if (!formSubmitted) return;
+            console.log('[CHILD] hidden iframe loaded after submit — showing thank you');
+            setTimeout(showThankYou, 300);
+          });
+        });
+        
+        // Fallback: JotForm postMessage
         window.addEventListener('message', function(e) {
           if (!e.data || typeof e.data !== 'object') return;
-        
           console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
         
           if (
@@ -1288,7 +1314,7 @@
         });
 
     </script>
-
+<iframe name="jotform-submit-target" id="jotform-submit-target" style="display:none;"></iframe>
 </body>
 
 </html>
