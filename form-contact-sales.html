@@ -694,7 +694,7 @@
                 <div id="custom-radio-wrapper" class="d-flex mb-md-0">
                   <div>
                     <input type="checkbox" class="form-checkbox d-block validate[required] opt-in-checkbox"
-                      id="opt-in-checkbox" name="opt_in_checkbox" required="" value="Opt-In-Checkbox" />
+                      id="opt-in-checkbox" name="opt_in_checkbox" value="Opt-In-Checkbox" />
                   </div>
                   <div class="checkbox-label">
                     <label id="label-opt-in-checkbox" class="label-opt-in-checkbox" for="opt-in-checkbox"></label>
@@ -709,7 +709,7 @@
                       <div class="d-flex">
                         <div>
                           <input type="checkbox" class="form-checkbox validate[required] mb-md-0 mb-4"
-                            id="input_64_0" name="q64_typeA64[]" required="" value="Agree" />
+                            id="input_64_0" name="q64_typeA64[]" value="Agree" />
                         </div>
                         <div class="checkbox-label">
                           <label id="label_input_64_0" class="dynamic-privacy-terms" for="input_64_0">
@@ -991,7 +991,7 @@
         console.log('[CHILD] onsubmit fired');
         var errors = false;
         var requiredFields = ['first_1', 'last_1', 'input_2', 'input_13'];
-
+      
         for (var i = 0; i < requiredFields.length; i++) {
           var el = document.getElementById(requiredFields[i]);
           if (!el) continue;
@@ -1016,7 +1016,25 @@
             }
           }
         }
-
+      
+        // ← ADD CHECKBOX VALIDATION HERE
+        var requiredCheckboxes = [
+          document.getElementById('opt-in-checkbox'),
+          document.getElementById('input_64_0')
+        ];
+      
+        for (var j = 0; j < requiredCheckboxes.length; j++) {
+          var cb = requiredCheckboxes[j];
+          if (!cb) continue;
+          if (!cb.checked) {
+            errors = true;
+            cb.style.border = '2px solid #d93025';
+          } else {
+            cb.style.border = '';
+          }
+        }
+        // ← END CHECKBOX VALIDATION
+      
         if (errors) {
           console.log('[CHILD] validation failed, blocking submit');
           var globalError = document.querySelector('.custom-form-error');
@@ -1024,14 +1042,14 @@
           document.getElementById('input_5').removeAttribute('disabled');
           return false;
         }
-
+      
         console.log('[CHILD] validation passed, calling JotForm submit');
         if (typeof testSubmitFunction !== 'undefined') {
           return testSubmitFunction();
         }
         return true;
       };
-
+      
       // Clear field errors on input
       var fields = ['first_1', 'last_1', 'input_2', 'input_13'];
       for (var i = 0; i < fields.length; i++) {
@@ -1051,6 +1069,25 @@
           });
         })(fields[i]);
       }
+      
+      // ← ADD CHECKBOX CHANGE LISTENERS HERE
+      var checkboxIds = ['opt-in-checkbox', 'input_64_0'];
+      for (var j = 0; j < checkboxIds.length; j++) {
+        (function(id) {
+          var cb = document.getElementById(id);
+          if (!cb) return;
+          cb.addEventListener('change', function() {
+            if (this.checked) {
+              this.style.border = '';
+            }
+            var hasErrors = document.querySelector('.form-line-error');
+            var anyRedBorder = document.querySelector('[style*="border: 2px solid rgb(217, 48, 37)"]');
+            var globalError = document.querySelector('.custom-form-error');
+            if (globalError) globalError.className = (hasErrors || anyRedBorder) ? 'custom-form-error active' : 'custom-form-error';
+          });
+        })(checkboxIds[j]);
+      }
+      // ← END CHECKBOX CHANGE LISTENERS
     });
 
     // ============================================================
