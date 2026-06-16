@@ -917,52 +917,6 @@
     <script>
 
         // ============================================================
-        // SOURCE MAP — maps domain to JotForm source value for input_11
-        // ============================================================
-        var sourceMap = {
-            'teradek.com': 'Newsletter-Teradek',
-            'smallhd.com': 'Newsletter-SmallHD',
-            'woodencamera.com': 'Newsletter-WoodenCamera'
-        };
-
-        // ============================================================
-        // CONFIG — URL params (primary)
-        // ============================================================
-        var config = (function () {
-            var params = new URLSearchParams(window.location.search);
-            return {
-                domain: params.get('domain') || 'teradek.com',
-                formSource: params.get('source') || 'Newsletter-Teradek',
-                isDownload: params.get('isDownload') === 'true',
-                tyHeading: params.get('tyHeading') || 'Thank You!',
-                tyMsg: params.get('tyMsg') || 'You have successfully subscribed to our newsletter.',
-                downloadUrl: params.get('downloadUrl') || ''
-            };
-        })();
-
-        /*
-        // ============================================================
-        // CONFIG — postMessage version (commented out)
-        // ============================================================
-        var config = {
-          domain: 'teradek.com',
-          formSource: 'Newsletter-Teradek',
-          isDownload: false,
-          tyHeading: 'Thank You!',
-          tyMsg: 'You have successfully subscribed to our newsletter.',
-          downloadUrl: ''
-        };
-        window.iFrameResizer = {
-          onMessage: function(data) {
-            if (data.action === 'initConfig') {
-              config = Object.assign(config, data.config);
-              applyConfig();
-            }
-          }
-        };
-        */
-
-        // ============================================================
         // DOMAIN MAP
         // ============================================================
         var domainMap = {
@@ -977,30 +931,24 @@
         function applyConfig() {
             var site = domainMap[config.domain] || domainMap['teradek.com'];
 
-            // Opt-in label
             var optInLabel = document.querySelector('.label-opt-in-checkbox');
             if (optInLabel) {
                 optInLabel.innerHTML = 'Sign me up to receive emails about events, promotions and marketing communications from ' + site.host + '<span class="form-required">*</span>';
             }
 
-            // Terms/privacy label
             var privacyLabel = document.querySelector('.dynamic-privacy-terms');
             if (privacyLabel) {
                 privacyLabel.innerHTML = 'By checking this box you confirm that you have read and agree to our <a href="' + site.terms + '" target="_top">Terms of Service</a> and <a href="' + site.privacy + '" target="_top">Privacy Policy</a>.<span class="form-required">*</span>';
             }
 
-            // Set source field — use formSource from params, or derive from domain
+            // input_11 is the source field for this form (vs input_27 in contact sales)
             var sourceField = document.getElementById('input_11');
-            if (sourceField) {
-                sourceField.value = config.formSource || sourceMap[config.domain] || 'Newsletter-Teradek';
-            }
+            if (sourceField) sourceField.value = config.formSource;
 
-            // Wire opt-in checkbox to hidden brand checkboxes for this brand
             var optInCheckbox = document.querySelector('.opt-in-checkbox');
             var brandCheckboxes = document.querySelectorAll('input[type="checkbox"][name="q7_typeA7[]"][value="' + site.host + '"]');
             if (optInCheckbox) {
                 optInCheckbox.addEventListener('change', function () {
-                    // Also set the hidden radio to "No - Let Me Choose" so JotForm conditions fire correctly
                     var radioNoChoose = document.getElementById('input_6_1');
                     if (radioNoChoose) radioNoChoose.checked = true;
                     for (var i = 0; i < brandCheckboxes.length; i++) {
@@ -1009,7 +957,6 @@
                 });
             }
 
-            // Execute Turnstile
             if (window.turnstile) {
                 turnstile.execute('#turnstile-widget');
             }
