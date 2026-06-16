@@ -8,18 +8,20 @@
     <!-- iframe-resizer MUST be first -->
     <script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5"></script>
 
-    <!-- Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+    <!-- Turnstile — explicit render mode, onload callback -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"
+        defer></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/cs-bootstrap.css">
-    <link rel="stylesheet" href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/base.css">
+
     <link rel="stylesheet"
         href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/BS5-cs-modal-styles.css">
     <link rel="stylesheet"
         href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/BS5-cs-form-styles.css">
     <link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0095/4332/files/cs-hk-fonts.css?v=1773095116">
+    <link rel="stylesheet" href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/overrides/base.css">
 
     <style>
         html,
@@ -421,14 +423,13 @@
             opacity: 0.25;
         }
 
-        /* Thank you message */
         .thank-you-msg {
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 20rem;
-            color: white;
+            /*color: white;*/
             text-align: center;
             font-family: 'HK Grotesk Pro', Helvetica, Verdana, sans-serif;
             padding: 2rem;
@@ -438,11 +439,13 @@
             display: flex;
         }
     </style>
+
+    <link rel="stylesheet"
+        href="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/css/base/cs-bootstrap-@5">
 </head>
 
 <body>
 
-    <!-- Hidden iframe for form submission detection -->
     <iframe name="jotform-submit-target" id="jotform-submit-target" style="display:none;"></iframe>
 
     <div class="cs-container supernova cs-form cs-form-iframe" data-iframe-size>
@@ -476,12 +479,8 @@
         <script src="https://d2wwkqp6xjz1sl.cloudfront.net/bootstrap/legacy/assets/js/global.js" defer></script>
 
         <script>
-            try {
-                trustedTypes.createPolicy('default', { createHTML: s => s, createScriptURL: s => s, createScript: s => s });
-            } catch (e) { }
-            try {
-                trustedTypes.createPolicy('goog#html', { createHTML: s => s, createScriptURL: s => s, createScript: s => s });
-            } catch (e) { }
+            try { trustedTypes.createPolicy('default', { createHTML: s => s, createScriptURL: s => s, createScript: s => s }); } catch (e) { }
+            try { trustedTypes.createPolicy('goog#html', { createHTML: s => s, createScriptURL: s => s, createScript: s => s }); } catch (e) { }
         </script>
 
         <script type="text/javascript">
@@ -497,9 +496,14 @@
             JotForm.activeRedirect = "thanktext";
             JotForm.uploadServerURL = "https://upload.jotform.com/upload";
             JotForm.setCalculations([{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "15", "equation": "{15}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920829156", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920941798", "conditionTrue": false, "baseField": "15" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "1", "equation": "{1}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920952217", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920995178", "conditionTrue": false, "baseField": "15" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1699293503998", "resultField": "43", "decimalPlaces": "2", "isError": false, "conditionId": "1699293543887", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293589916", "resultField": "44", "decimalPlaces": "2", "isError": false, "conditionId": "1699293588302", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293606498", "resultField": "45", "decimalPlaces": "2", "isError": false, "conditionId": "1699293604935", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293628540", "resultField": "46", "decimalPlaces": "2", "isError": false, "conditionId": "1699293627181", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293651333", "resultField": "47", "decimalPlaces": "2", "isError": false, "conditionId": "1699293650163", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293676803", "resultField": "48", "decimalPlaces": "2", "isError": false, "conditionId": "1699293675171", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293695814", "resultField": "49", "decimalPlaces": "2", "isError": false, "conditionId": "1699293693655", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1699293711929", "resultField": "50", "decimalPlaces": "2", "isError": false, "conditionId": "1699293710628", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830323144", "resultField": "56", "decimalPlaces": "2", "isError": false, "conditionId": "1742827623397", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830329691", "resultField": "57", "decimalPlaces": "2", "isError": false, "conditionId": "1742827699032", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830335838", "resultField": "58", "decimalPlaces": "2", "isError": false, "conditionId": "1742827713870", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830345491", "resultField": "59", "decimalPlaces": "2", "isError": false, "conditionId": "1742827738595", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830442996", "resultField": "52", "decimalPlaces": "2", "isError": false, "conditionId": "1742827547074", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830450653", "resultField": "53", "decimalPlaces": "2", "isError": false, "conditionId": "1742827551413", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1742830458063", "resultField": "54", "decimalPlaces": "2", "isError": false, "conditionId": "1742827549624", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986016790", "resultField": "66", "decimalPlaces": "2", "isError": false, "conditionId": "1770986014754", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986040042", "resultField": "67", "decimalPlaces": "2", "isError": false, "conditionId": "1770986038998", "conditionTrue": false, "baseField": "27" }, { "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "", "equation": "True", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_0_1770986090305", "resultField": "68", "decimalPlaces": "2", "isError": false, "conditionId": "1770986089194", "conditionTrue": false, "baseField": "27" }]);
+
+            // URL redirect conditions removed — we handle thank you in-page
             JotForm.setConditions([
-                { "action": [{ "id": "action_1696509343605", "visibility": "Show", "isError": false, "field": "7" }], "id": "1696509354427", "index": "0", "link": "Any", "priority": "0", "terms": [{ "id": "term_1696509343605", "field": "6", "operator": "equals", "value": "No - Let Me Choose", "isError": false }], "type": "field" },
-                { "action": [{ "id": "action_1698770115878", "visibility": "Hide", "isError": false, "field": "5" }], "id": "1698770126473", "index": "1", "link": "Any", "priority": "1", "terms": [{ "id": "term_1698770115878", "field": "16", "operator": "isFilled", "value": "", "isError": false }], "type": "field" }
+                { "action": [{ "id": "action_1742920799416", "visibility": "Require", "field": "15", "isError": false }], "disabled": "1", "id": "1742920808824", "index": "0", "link": "Any", "priority": "0", "terms": [{ "id": "term_1742920799416", "field": "60", "operator": "equals", "value": "Yes", "isError": false }], "type": "require" },
+                { "action": [{ "id": "action_1742920751415", "visibility": "Show", "isError": false, "field": "15" }], "disabled": "1", "id": "1742920769358", "index": "1", "link": "Any", "priority": "1", "terms": [{ "id": "term_1742920751415", "field": "60", "operator": "equals", "value": "Yes", "isError": false }], "type": "field" },
+                { "action": [{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "15", "equation": "{15}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920829156", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920941798", "conditionTrue": false, "baseField": "15" }], "id": "1742920941798", "index": "2", "link": "Any", "priority": "2", "terms": [{ "id": "term_1742920829156", "field": "15", "operator": "isFilled", "value": "", "isError": false }], "type": "calculation" },
+                { "action": [{ "replaceText": "", "readOnly": false, "newCalculationType": true, "allowZeroCopy": true, "useCommasForDecimals": false, "operands": "1", "equation": "{1}", "showBeforeInput": false, "showEmptyDecimals": false, "ignoreHiddenFields": false, "insertAsText": false, "id": "action_1742920952217", "resultField": "61", "decimalPlaces": "2", "isError": false, "conditionId": "1742920995178", "conditionTrue": false, "baseField": "15" }], "id": "1742920995178", "index": "3", "link": "Any", "priority": "3", "terms": [{ "id": "term_1742920952217", "field": "15", "operator": "isEmpty", "value": "", "isError": false }], "type": "calculation" },
+                { "action": [{ "id": "action_1696509343605", "visibility": "Show", "isError": false, "field": "7" }], "disabled": "1", "id": "1696509354427", "index": "31", "link": "Any", "priority": "31", "terms": [{ "id": "term_1696509343605", "field": "6", "operator": "equals", "value": "No - Let Me Choose", "isError": false }], "type": "field" }
             ]);
             JotForm.submitError = "jumpToFirstError";
 
@@ -518,7 +522,6 @@
             }, 20);
         </script>
 
-        <!-- FORM -->
         <div id="customError" class="custom-error"></div>
 
         <form class="jotform-form" action="https://eu-submit.jotform.com/submit/260426079571359" method="post"
@@ -548,16 +551,16 @@
                                             class="form-textbox validate[required] form-control" data-defaultvalue=""
                                             autoComplete="section-input_1 given-name" size="10" data-component="first"
                                             placeholder=" " value="" />
-                                        <label class="form-label form-label-top" id="label_1" for="first_1">
-                                            First Name<span class="form-required">*</span></label>
+                                        <label class="form-label form-label-top" id="label_1" for="first_1">First
+                                            Name<span class="form-required">*</span></label>
                                     </div>
                                     <div class="form-floating col-md-6 ps-md-2">
                                         <input type="text" id="last_1" name="q1_name[last]"
                                             class="form-textbox validate[required] form-control" data-defaultvalue=""
                                             placeholder=" " autoComplete="section-input_1 family-name" size="15"
                                             data-component="last" value="" />
-                                        <label class="form-label form-label-top" id="sublabel_1_last" for="last_1">
-                                            Last Name<span class="form-required">*</span></label>
+                                        <label class="form-label form-label-top" id="sublabel_1_last" for="last_1">Last
+                                            Name<span class="form-required">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -575,8 +578,8 @@
                                             class="form-textbox validate[required, Email] form-control"
                                             data-defaultvalue="" placeholder=" " autoComplete="section-input_2 email"
                                             style="width:100%" data-component="email" value="" />
-                                        <label class="form-label form-label-top" id="label_2" for="input_2">
-                                            Email<span class="form-required">*</span></label>
+                                        <label class="form-label form-label-top" id="label_2" for="input_2">Email<span
+                                                class="form-required">*</span></label>
                                     </div>
                                 </div>
                             </li>
@@ -587,7 +590,8 @@
                                     <div class="form-floating">
                                         <select class="form-dropdown form-address-country form-control"
                                             name="q3_address[country]" id="input_3_country" data-component="country"
-                                            autoComplete="section-input_3 country" aria-labelledby="sublabel_3_country">
+                                            required="" autoComplete="section-input_3 country"
+                                            aria-labelledby="sublabel_3_country">
                                             <option value="">Please Select</option>
                                             <option value="United States" selected>United States</option>
                                             <option value="Canada">Canada</option>
@@ -707,8 +711,7 @@
                                             <option value="other">Other</option>
                                         </select>
                                         <label class="form-label form-label-top" for="input_3_country"
-                                            id="sublabel_3_country">
-                                            Country<span class="form-required">*</span></label>
+                                            id="sublabel_3_country">Country<span class="form-required">*</span></label>
                                     </div>
                                 </div>
                             </li>
@@ -773,8 +776,8 @@
                                         class="form-textarea form-control cr-1 validate[required]" name="q13_typeA13"
                                         style="width:100%; height:88px" data-component="textarea"
                                         aria-labelledby="label_13"></textarea>
-                                    <label class="form-label form-label-top" id="label_13" for="input_13">
-                                        Your Message<span class="form-required">*</span></label>
+                                    <label class="form-label form-label-top" id="label_13" for="input_13">Your
+                                        Message<span class="form-required">*</span></label>
                                 </div>
                             </div>
                         </li>
@@ -849,8 +852,7 @@
                             <li class="form-line mb-4" data-type="control_checkbox" id="id_6">
                                 <div id="custom-radio-wrapper" class="d-flex mb-md-0">
                                     <div>
-                                        <input type="checkbox"
-                                            class="form-checkbox d-block validate[required] opt-in-checkbox"
+                                        <input type="checkbox" class="form-checkbox d-block opt-in-checkbox"
                                             id="opt-in-checkbox" name="opt_in_checkbox" value="Opt-In-Checkbox" />
                                     </div>
                                     <div class="checkbox-label">
@@ -866,8 +868,7 @@
                                         <span class="form-checkbox-item" style="clear:left">
                                             <div class="d-flex">
                                                 <div>
-                                                    <input type="checkbox"
-                                                        class="form-checkbox validate[required] mb-md-0 mb-4"
+                                                    <input type="checkbox" class="form-checkbox mb-md-0 mb-4"
                                                         id="input_64_0" name="q64_typeA64[]" value="Agree" />
                                                 </div>
                                                 <div class="checkbox-label">
@@ -885,13 +886,10 @@
                             </li>
                         </div>
 
-                        <!-- Turnstile -->
+                        <!-- Turnstile — explicit render, no data attributes needed -->
                         <div class="col-md-6">
                             <div class="d-flex justify-items-center align-items-center ps-lg-2">
-                                <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAADNX8F30uPsaN81A"
-                                    data-theme="dark" data-size="normal" data-execution="execute"
-                                    data-callback="onTurnstileSuccess" data-error-callback="onTurnstileError">
-                                </div>
+                                <div id="turnstile-widget"></div>
                             </div>
                         </div>
                     </div>
@@ -1161,6 +1159,36 @@
         };
 
         // ============================================================
+        // TURNSTILE — explicit render with readiness flags
+        // ============================================================
+        var turnstileReady = false;
+        var configReady = false;
+
+        function onTurnstileLoad() {
+            turnstileReady = true;
+            turnstile.render('#turnstile-widget', {
+                sitekey: '0x4AAAAAADNX8F30uPsaN81A',
+                theme: 'dark',
+                size: 'normal',
+                execution: 'execute',
+                callback: onTurnstileSuccess,
+                'error-callback': onTurnstileError,
+                'expired-callback': function () {
+                    if (window.turnstile) turnstile.reset('#turnstile-widget');
+                }
+            });
+            if (configReady) turnstile.execute('#turnstile-widget');
+        }
+
+        function onTurnstileSuccess(token) {
+            document.getElementById('input_5').removeAttribute('disabled');
+        }
+
+        function onTurnstileError() {
+            if (window.turnstile) turnstile.reset('#turnstile-widget');
+        }
+
+        // ============================================================
         // APPLY CONFIG
         // ============================================================
         function applyConfig() {
@@ -1189,7 +1217,8 @@
                 });
             }
 
-            if (window.turnstile) {
+            configReady = true;
+            if (turnstileReady && window.turnstile) {
                 turnstile.execute('#turnstile-widget');
             }
         }
@@ -1224,20 +1253,7 @@
         }
 
         // ============================================================
-        // TURNSTILE
-        // ============================================================
-        function onTurnstileSuccess(token) {
-            document.getElementById('input_5').removeAttribute('disabled');
-        }
-
-        function onTurnstileError() {
-            if (window.turnstile) turnstile.reset('#turnstile-widget');
-        }
-
-        // ============================================================
         // SUBMISSION DETECTION
-        // Primary: hidden iframe load after submit
-        // Fallback: JotForm postMessage
         // ============================================================
         window.addEventListener('load', function () {
             var submitTarget = document.getElementById('jotform-submit-target');
@@ -1262,10 +1278,7 @@
             if (!e.data || typeof e.data !== 'object') return;
             console.log('[CHILD] message received:', JSON.stringify(e.data).substring(0, 150));
 
-            if (
-                e.data.action === 'submission-completed' ||
-                e.data.action === 'thankYou'
-            ) {
+            if (e.data.action === 'submission-completed' || e.data.action === 'thankYou') {
                 showThankYou();
             }
 
@@ -1276,7 +1289,7 @@
         });
 
         // ============================================================
-        // PRE-SUBMIT VALIDATION — overrides JotForm's onsubmit
+        // PRE-SUBMIT VALIDATION
         // ============================================================
         window.addEventListener('load', function () {
             var form = document.getElementById('260426079571359');
@@ -1298,26 +1311,20 @@
                         while (node && node.tagName !== 'LI') node = node.parentNode;
                         if (node) {
                             var cls = node.className || '';
-                            if (cls.indexOf('form-line-error') === -1) {
-                                node.className = cls + ' form-line-error';
-                            }
+                            if (cls.indexOf('form-line-error') === -1) node.className = cls + ' form-line-error';
                         }
                     } else {
                         el.style.border = '';
                         var node = el.parentNode;
                         while (node && node.tagName !== 'LI') node = node.parentNode;
-                        if (node) {
-                            node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
-                        }
+                        if (node) node.className = (node.className || '').replace(' form-line-error', '').replace('form-line-error', '');
                     }
                 }
 
-                // ← ADD CHECKBOX VALIDATION HERE
                 var requiredCheckboxes = [
                     document.getElementById('opt-in-checkbox'),
                     document.getElementById('input_64_0')
                 ];
-
                 for (var j = 0; j < requiredCheckboxes.length; j++) {
                     var cb = requiredCheckboxes[j];
                     if (!cb) continue;
@@ -1328,7 +1335,6 @@
                         cb.style.border = '';
                     }
                 }
-                // ← END CHECKBOX VALIDATION
 
                 if (errors) {
                     console.log('[CHILD] validation failed, blocking submit');
@@ -1365,16 +1371,13 @@
                 })(fields[i]);
             }
 
-            // ← ADD CHECKBOX CHANGE LISTENERS HERE
             var checkboxIds = ['opt-in-checkbox', 'input_64_0'];
             for (var j = 0; j < checkboxIds.length; j++) {
                 (function (id) {
                     var cb = document.getElementById(id);
                     if (!cb) return;
                     cb.addEventListener('change', function () {
-                        if (this.checked) {
-                            this.style.border = '';
-                        }
+                        if (this.checked) this.style.border = '';
                         var hasErrors = document.querySelector('.form-line-error');
                         var anyRedBorder = document.querySelector('[style*="border: 2px solid rgb(217, 48, 37)"]');
                         var globalError = document.querySelector('.custom-form-error');
@@ -1382,11 +1385,10 @@
                     });
                 })(checkboxIds[j]);
             }
-            // ← END CHECKBOX CHANGE LISTENERS
         });
 
         // ============================================================
-        // ERROR MESSAGING — create global error div
+        // ERROR MESSAGING
         // ============================================================
         window.addEventListener('load', function () {
             var errorHolder = document.getElementById('customError');
