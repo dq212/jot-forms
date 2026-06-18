@@ -146,6 +146,10 @@
       opacity: 1;
     }
 
+    .cs-form textarea {
+      padding-top: 1.25rem !important;
+    }
+
     .form-dropdown:not([size]),
     .form-textbox {
       height: 3.8em;
@@ -250,6 +254,7 @@
       color: unset;
     }
 
+
     input[type="checkbox"] {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -327,6 +332,16 @@
       transform: scale(.85) translateY(-.5rem) translate(.15rem);
     }
 
+    .form-floating>textarea:focus~label::after,
+    .form-floating>textarea:not(:placeholder-shown)~label::after {
+      position: absolute;
+      inset: 1rem 0.375rem;
+      z-index: -1;
+      height: 1.5em;
+      content: "";
+      background-color: unset;
+    }
+
     .form-sub-label {
       margin-top: 0.25rem;
       color: rgba(255, 255, 255, 0.6);
@@ -385,8 +400,6 @@
       border-top: 1px #a2a2a3 solid;
       opacity: 0.25;
     }
-
-
 
     .thank-you-msg {
       display: none;
@@ -455,36 +468,39 @@
       JotForm.activeRedirect = "thanktext";
       JotForm.uploadServerURL = "https://upload.jotform.com/upload";
 
-      // URL redirect conditions removed — honeypot condition only
+      // URL redirect conditions removed — we handle thank you in-page
+      // Honeypot condition kept
       JotForm.setConditions([
         { "action": [{ "id": "action_1698770115878", "visibility": "Hide", "isError": false, "field": "5" }], "id": "1698770126473", "index": "1", "link": "Any", "priority": "1", "terms": [{ "id": "term_1698770115878", "field": "16", "operator": "isFilled", "value": "", "isError": false }], "type": "field" }
       ]);
       JotForm.submitError = "jumpToFirstError";
 
       JotForm.init(function () {
+        JotForm.setPhoneMaskingValidator('input_22_full', '\u0028\u0023\u0023\u0023\u0029 \u0023\u0023\u0023\u002d\u0023\u0023\u0023\u0023');
+        if (window.JotForm && JotForm.accessible) $('input_25').setAttribute('tabindex', 0);
         if (window.JotForm && JotForm.accessible) $('input_11').setAttribute('tabindex', 0);
         if (window.JotForm && JotForm.accessible) $('input_16').setAttribute('tabindex', 0);
         JotForm.alterTexts(undefined);
       });
 
       setTimeout(function () {
-        JotForm.paymentExtrasOnTheFly([null, { "description": "", "name": "name", "qid": "1", "text": "Name", "type": "control_fullname" }, { "description": "", "name": "email", "qid": "2", "subLabel": "example@example.com", "text": "Email", "type": "control_email" }, { "description": "", "name": "address", "qid": "3", "text": "Country", "type": "control_address" }, null, { "name": "submit", "qid": "5", "text": "Subscribe", "type": "control_button" }, null, null, null, null, null, { "description": "", "name": "source", "qid": "11", "subLabel": "", "text": "Source", "type": "control_textbox" }, null, null, null, null, { "description": "", "name": "companySpm", "qid": "16", "subLabel": "", "text": "Company SPM", "type": "control_textbox" }, null, null, null, null, null, { "description": "", "name": "byChecking", "qid": "21", "text": "*By checking this box you confirm that you have read and agree to our Terms of Service and Privacy Policy", "type": "control_checkbox" }, { "description": "", "name": "pleaseVerify", "qid": "22", "text": "Please verify that you are human", "type": "control_captcha" }]);
+        JotForm.paymentExtrasOnTheFly([null, { "description": "", "name": "name", "qid": "1", "text": "Name", "type": "control_fullname" }, { "description": "", "name": "email", "qid": "2", "subLabel": "example@example.com", "text": "Email", "type": "control_email" }, { "description": "", "name": "address", "qid": "3", "text": "Country", "type": "control_address" }, null, { "name": "submit", "qid": "5", "text": "Submit", "type": "control_button" }, null, null, null, null, null, { "description": "", "name": "source", "qid": "11", "subLabel": "", "text": "Source", "type": "control_textbox" }, null, null, null, null, { "description": "", "name": "companySpm", "qid": "16", "subLabel": "", "text": "Company SPM", "type": "control_textbox" }, null, null, null, null, { "description": "", "name": "educationalInstitution", "qid": "21", "subLabel": "Example Oxford University", "text": "Educational Institution Name", "type": "control_textbox" }, { "description": "", "name": "phoneNumber", "qid": "22", "text": "Phone Number", "type": "control_phone" }, null, { "description": "", "name": "yourMain", "qid": "24", "subLabel": "", "text": "Your Main Focus/Industry", "type": "control_dropdown" }, { "description": "", "mde": "No", "name": "message", "qid": "25", "subLabel": "", "text": "Message", "type": "control_textarea", "wysiwyg": "Disable" }, { "description": "", "name": "byChecking", "qid": "26", "text": "*By checking this box you confirm that you have read and agree to our Terms of Service and Privacy Policy", "type": "control_checkbox" }, { "description": "", "name": "pleaseVerify", "qid": "27", "text": "Please verify that you are human", "type": "control_captcha" }]);
       }, 20);
     </script>
 
     <div id="customError" class="custom-error"></div>
 
-    <form class="jotform-form" action="https://eu-submit.jotform.com/submit/261402356192351" method="post"
-      name="form_261402356192351" id="261402356192351" accept-charset="utf-8" autocomplete="on"
+    <form class="jotform-form" action="https://eu-submit.jotform.com/submit/261402346745354" method="post"
+      name="form_261402346745354" id="261402346745354" accept-charset="utf-8" autocomplete="on"
       target="jotform-submit-target">
 
-      <input type="hidden" name="formID" value="261402356192351" />
+      <input type="hidden" name="formID" value="261402346745354" />
       <input type="hidden" id="JWTContainer" value="" />
       <input type="hidden" id="cardinalOrderNumber" value="" />
-      <input type="hidden" id="jsExecutionTracker" name="jsExecutionTracker" value="build-date-1781615856313" />
+      <input type="hidden" id="jsExecutionTracker" name="jsExecutionTracker" value="build-date-1781615828940" />
       <input type="hidden" id="submitSource" name="submitSource" value="unknown" />
       <input type="hidden" id="submitDate" name="submitDate" value="undefined" />
-      <input type="hidden" id="buildDate" name="buildDate" value="1781615856313" />
+      <input type="hidden" id="buildDate" name="buildDate" value="1781615828940" />
       <input type="hidden" name="uploadServerUrl" value="https://upload.jotform.com/upload" />
       <input type="hidden" name="eventObserver" value="1" />
 
@@ -516,12 +532,12 @@
             </div>
           </li>
 
-          <!-- EMAIL AND COUNTRY -->
+          <!-- EMAIL -->
           <div class="row mb-4">
-            <div class="col-md-6 pe-2">
-              <li class="form-line form-line-column form-col-1 jf-required" data-type="control_email" id="id_2">
+            <div class="col-12">
+              <li class="form-line jf-required" data-type="control_email" id="id_2">
                 <div id="cid_2" class="jf-required">
-                  <div class="form-floating mb-md-0">
+                  <div class="form-floating">
                     <input type="email" id="input_2" name="q2_email"
                       class="form-textbox validate[required, Email] form-control" data-defaultvalue="" placeholder=" "
                       autoComplete="section-input_2 email" style="width:100%" data-component="email" value="" />
@@ -531,8 +547,61 @@
                 </div>
               </li>
             </div>
+          </div>
+
+          <!-- INSTITUTION AND PHONE -->
+          <div class="row mb-4">
+            <div class="col-md-6 pe-2">
+              <li class="form-line jf-required" data-type="control_textbox" id="id_21">
+                <div id="cid_21" class="form-input-wide jf-required">
+                  <div class="form-floating mb-md-0">
+                    <input type="text" id="input_21" name="q21_educationalInstitution"
+                      class="form-textbox validate[required] form-control" data-defaultvalue="" placeholder=" "
+                      style="width:100%" data-component="textbox" value="" />
+                    <label class="form-label form-label-top" id="label_21" for="input_21">Educational Institution
+                      Name<span class="form-required">*</span></label>
+                  </div>
+                </div>
+              </li>
+            </div>
             <div class="col-md-6 pt-md-0 pt-4 ps-md-2">
-              <li class="form-line" data-type="control_address" id="id_3">
+              <li class="form-line jf-required" data-type="control_phone" id="id_22">
+                <div id="cid_22" class="form-input-wide jf-required">
+                  <div class="form-floating">
+                    <input type="tel" id="input_22_full" name="q22_phoneNumber[full]" data-type="mask-number"
+                      class="mask-phone-number form-textbox validate[required, Fill Mask] form-control"
+                      data-defaultvalue="" autoComplete="section-input_22 tel-national" style="width:100%"
+                      data-masked="true" placeholder=" " data-component="phone" value="" inputmode="text"
+                      maskvalue="(###) ###-####" />
+                    <label class="form-label form-label-top" for="input_22_full" id="sublabel_22_masked">Phone
+                      Number<span class="form-required">*</span></label>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </div>
+
+          <!-- FOCUS/INDUSTRY AND COUNTRY -->
+          <div class="row mb-4">
+            <div class="col-md-6 pe-2">
+              <li class="form-line jf-required" data-type="control_dropdown" id="id_24">
+                <div id="cid_24" class="form-input-wide jf-required">
+                  <div class="form-floating mb-md-0">
+                    <select class="form-dropdown validate[required] form-control" id="input_24" name="q24_yourMain"
+                      style="width:100%" data-component="dropdown" required="" aria-label="Your Main Focus/Industry">
+                      <option value="">Please Select</option>
+                      <option value="Cine">Cine</option>
+                      <option value="Live Production">Live Production</option>
+                      <option value="Medial">Medial</option>
+                    </select>
+                    <label class="form-label form-label-top" for="input_24" id="label_24">Your Main Focus /
+                      Industry<span class="form-required">*</span></label>
+                  </div>
+                </div>
+              </li>
+            </div>
+            <div class="col-md-6 pt-md-0 pt-4 ps-md-2">
+              <li class="form-line jf-required" data-type="control_address" id="id_3">
                 <div id="cid_3" class="form-input" data-layout="full">
                   <div class="form-floating">
                     <select class="form-dropdown validate[required] form-address-country form-control"
@@ -541,6 +610,7 @@
                       <option value="">Please Select</option>
                       <option value="United States" selected>United States</option>
                       <option value="Canada">Canada</option>
+
                       <option value="Afghanistan">Afghanistan</option>
                       <option value="Albania">Albania</option>
                       <option value="Algeria">Algeria</option>
@@ -685,20 +755,33 @@
             </div>
           </div>
 
+          <!-- MESSAGE -->
+          <div class="row mb-4">
+            <li class="form-line" data-type="control_textarea" id="id_25">
+              <div id="cid_25" class="form-input-wide" data-layout="full">
+                <div class="form-floating">
+                  <textarea id="input_25" placeholder=" " class="form-textarea form-control" name="q25_message"
+                    style="width:100%; height:88px" data-component="textarea" aria-labelledby="label_25"></textarea>
+                  <label class="form-label form-label-top" id="label_25" for="input_25">Message</label>
+                </div>
+              </div>
+            </li>
+          </div>
+
           <!-- TERMS CHECKBOX + TURNSTILE -->
-          <div class="row mb-8 flex-md-row-reverse align-items-center">
+          <div class="row mb-4 flex-md-row-reverse align-items-center">
             <div class="col-md-6 mb-4 ps-md-4 ps-6">
-              <li class="form-line jf-required" data-type="control_checkbox" id="id_21">
-                <div id="cid_21" class="form-input-wide jf-required" data-layout="full">
+              <li class="form-line jf-required" data-type="control_checkbox" id="id_26">
+                <div id="cid_26" class="form-input-wide jf-required" data-layout="full">
                   <div class="form-single-column" role="group" data-component="checkbox">
                     <span class="form-checkbox-item" style="clear:left">
                       <div class="d-flex">
                         <div>
-                          <input type="checkbox" class="form-checkbox mb-md-0 mb-4" id="input_21_0"
-                            name="q21_byChecking[]" value="Agree" />
+                          <input type="checkbox" class="form-checkbox mb-md-0 mb-4" id="input_26_0"
+                            name="q26_byChecking[]" value="Agree" />
                         </div>
                         <div class="checkbox-label">
-                          <label id="label_input_21_0" class="dynamic-privacy-terms" for="input_21_0">
+                          <label id="label_input_26_0" class="dynamic-privacy-terms" for="input_26_0">
                             By checking this box you confirm that you have read and agree to our Terms of Service and
                             Privacy Policy<span class="form-required">*</span>
                           </label>
@@ -710,6 +793,7 @@
               </li>
             </div>
 
+            <!-- Turnstile — explicit render, no data attributes needed -->
             <div class="col-md-6">
               <div class="d-flex justify-items-center align-items-center ps-lg-2">
                 <div id="turnstile-widget"></div>
@@ -724,7 +808,7 @@
                 <div data-align="center" class="form-buttons-wrapper form-buttons-center jsTest-button-wrapperField">
                   <button id="input_5" type="submit" disabled
                     class="w-100 form-submit-button form-submit-button-gray-900 submit-button jf-form-buttons jsTest-submitField legacy-submit btn btn-white fw-bold"
-                    data-component="button" data-content="">Subscribe</button>
+                    data-component="button" data-content="">Send</button>
                 </div>
               </div>
             </li>
@@ -738,6 +822,7 @@
             </div>
           </li>
 
+          <!-- Company SPM honeypot -->
           <li class="form-line always-hidden" data-type="control_textbox" id="id_16">
             <div id="cid_16" class="form-input-wide always-hidden" data-layout="half">
               <input type="text" id="input_16" name="q16_companySpm" class="form-textbox" data-defaultvalue=""
@@ -751,11 +836,11 @@
 
       <script>JotForm.showJotFormPowered = "0";</script>
       <script>JotForm.poweredByText = "Powered by Jotform";</script>
-      <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="261402356192351" />
+      <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="261402346745354" />
       <script type="text/javascript">
-        var all_spc = document.querySelectorAll("form[id='261402356192351'] .si" + "mple" + "_spc");
+        var all_spc = document.querySelectorAll("form[id='261402346745354'] .si" + "mple" + "_spc");
         for (var i = 0; i < all_spc.length; i++) {
-          all_spc[i].value = "261402356192351-261402356192351";
+          all_spc[i].value = "261402346745354-261402346745354";
         }
       </script>
     </form>
@@ -772,6 +857,7 @@
 
   </div>
 
+  <!-- ALL LOGIC -->
   <script>
 
     // ============================================================
@@ -852,7 +938,7 @@
     // THANK YOU MESSAGE
     // ============================================================
     function showThankYou() {
-      var form = document.getElementById('261402356192351');
+      var form = document.getElementById('261402346745354');
       var errorDiv = document.getElementById('customError');
       if (form) form.style.display = 'none';
       if (errorDiv) errorDiv.style.display = 'none';
@@ -878,8 +964,26 @@
     }
 
     // ============================================================
-    // JotForm postMessage fallback
+    // SUBMISSION DETECTION
     // ============================================================
+    window.addEventListener('load', function () {
+      var submitTarget = document.getElementById('jotform-submit-target');
+      var form = document.getElementById('261402346745354');
+      if (!submitTarget || !form) return;
+
+      var formSubmitted = false;
+
+      form.addEventListener('submit', function () {
+        formSubmitted = true;
+      });
+
+      submitTarget.addEventListener('load', function () {
+        if (!formSubmitted) return;
+        setTimeout(showThankYou, 300);
+      });
+    });
+
+    // JotForm postMessage fallback
     window.addEventListener('message', function (e) {
       if (!e.data || typeof e.data !== 'object') return;
       if (e.data.action === 'submission-completed' || e.data.action === 'thankYou') {
@@ -892,25 +996,15 @@
     });
 
     // ============================================================
-    // VALIDATION + SUBMISSION DETECTION (combined in one load block)
+    // PRE-SUBMIT VALIDATION
     // ============================================================
     window.addEventListener('load', function () {
-      var submitTarget = document.getElementById('jotform-submit-target');
-      var form = document.getElementById('261402356192351');
-      if (!submitTarget || !form) return;
+      var form = document.getElementById('261402346745354');
+      if (!form) return;
 
-      var formSubmitted = false;
-
-      // Hidden iframe fires after JotForm posts — show thank you
-      submitTarget.addEventListener('load', function () {
-        if (!formSubmitted) return;
-        setTimeout(showThankYou, 300);
-      });
-
-      // Override onsubmit — validates, then sets formSubmitted = true before returning
       form.onsubmit = function (e) {
         var errors = false;
-        var requiredFields = ['first_1', 'last_1', 'input_2'];
+        var requiredFields = ['first_1', 'last_1', 'input_2', 'input_21', 'input_22_full'];
 
         for (var i = 0; i < requiredFields.length; i++) {
           var el = document.getElementById(requiredFields[i]);
@@ -933,7 +1027,20 @@
           }
         }
 
-        var cb = document.getElementById('input_21_0');
+        // Validate country and focus/industry dropdowns
+        var selects = [document.getElementById('input_3_country'), document.getElementById('input_24')];
+        for (var j = 0; j < selects.length; j++) {
+          var sel = selects[j];
+          if (!sel) continue;
+          if (!sel.value) {
+            errors = true;
+            sel.style.border = '2px solid #d93025';
+          } else {
+            sel.style.border = '';
+          }
+        }
+
+        var cb = document.getElementById('input_26_0');
         if (cb && !cb.checked) {
           errors = true;
           cb.style.border = '2px solid #d93025';
@@ -948,15 +1055,12 @@
           return false;
         }
 
-        // Validation passed — flag must be set synchronously before form posts
-        formSubmitted = true;
-
         if (typeof testSubmitFunction !== 'undefined') return testSubmitFunction();
         return true;
       };
 
-      // Clear text field errors on input
-      var fields = ['first_1', 'last_1', 'input_2'];
+      // Clear field errors on input
+      var fields = ['first_1', 'last_1', 'input_2', 'input_21', 'input_22_full'];
       for (var i = 0; i < fields.length; i++) {
         (function (id) {
           var el = document.getElementById(id);
@@ -976,8 +1080,19 @@
         })(fields[i]);
       }
 
-      // Clear checkbox error on change
-      var cb = document.getElementById('input_21_0');
+      // Clear select errors on change
+      var selects = ['input_3_country', 'input_24'];
+      for (var j = 0; j < selects.length; j++) {
+        (function (id) {
+          var sel = document.getElementById(id);
+          if (!sel) return;
+          sel.addEventListener('change', function () {
+            if (this.value) this.style.border = '';
+          });
+        })(selects[j]);
+      }
+
+      var cb = document.getElementById('input_26_0');
       if (cb) {
         cb.addEventListener('change', function () {
           if (this.checked) this.style.border = '';

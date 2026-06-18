@@ -386,8 +386,6 @@
       opacity: 0.25;
     }
 
-
-
     .thank-you-msg {
       display: none;
       flex-direction: column;
@@ -455,7 +453,8 @@
       JotForm.activeRedirect = "thanktext";
       JotForm.uploadServerURL = "https://upload.jotform.com/upload";
 
-      // URL redirect conditions removed — honeypot condition only
+      // URL redirect conditions removed — we handle thank you in-page
+      // Honeypot condition kept
       JotForm.setConditions([
         { "action": [{ "id": "action_1698770115878", "visibility": "Hide", "isError": false, "field": "5" }], "id": "1698770126473", "index": "1", "link": "Any", "priority": "1", "terms": [{ "id": "term_1698770115878", "field": "16", "operator": "isFilled", "value": "", "isError": false }], "type": "field" }
       ]);
@@ -541,6 +540,7 @@
                       <option value="">Please Select</option>
                       <option value="United States" selected>United States</option>
                       <option value="Canada">Canada</option>
+
                       <option value="Afghanistan">Afghanistan</option>
                       <option value="Albania">Albania</option>
                       <option value="Algeria">Algeria</option>
@@ -669,6 +669,7 @@
                       <option value="Ukraine">Ukraine</option>
                       <option value="United Arab Emirates">United Arab Emirates</option>
                       <option value="United Kingdom">United Kingdom</option>
+
                       <option value="Uruguay">Uruguay</option>
                       <option value="Venezuela">Venezuela</option>
                       <option value="Vietnam">Vietnam</option>
@@ -686,7 +687,7 @@
           </div>
 
           <!-- TERMS CHECKBOX + TURNSTILE -->
-          <div class="row mb-8 flex-md-row-reverse align-items-center">
+          <div class="row mb-4 flex-md-row-reverse align-items-center">
             <div class="col-md-6 mb-4 ps-md-4 ps-6">
               <li class="form-line jf-required" data-type="control_checkbox" id="id_21">
                 <div id="cid_21" class="form-input-wide jf-required" data-layout="full">
@@ -710,6 +711,7 @@
               </li>
             </div>
 
+            <!-- Turnstile — explicit render, no data attributes needed -->
             <div class="col-md-6">
               <div class="d-flex justify-items-center align-items-center ps-lg-2">
                 <div id="turnstile-widget"></div>
@@ -724,7 +726,7 @@
                 <div data-align="center" class="form-buttons-wrapper form-buttons-center jsTest-button-wrapperField">
                   <button id="input_5" type="submit" disabled
                     class="w-100 form-submit-button form-submit-button-gray-900 submit-button jf-form-buttons jsTest-submitField legacy-submit btn btn-white fw-bold"
-                    data-component="button" data-content="">Subscribe</button>
+                    data-component="button" data-content="">Send</button>
                 </div>
               </div>
             </li>
@@ -738,6 +740,7 @@
             </div>
           </li>
 
+          <!-- Company SPM honeypot -->
           <li class="form-line always-hidden" data-type="control_textbox" id="id_16">
             <div id="cid_16" class="form-input-wide always-hidden" data-layout="half">
               <input type="text" id="input_16" name="q16_companySpm" class="form-textbox" data-defaultvalue=""
@@ -772,6 +775,7 @@
 
   </div>
 
+  <!-- ALL LOGIC -->
   <script>
 
     // ============================================================
@@ -878,8 +882,26 @@
     }
 
     // ============================================================
-    // JotForm postMessage fallback
+    // SUBMISSION DETECTION
     // ============================================================
+    window.addEventListener('load', function () {
+      var submitTarget = document.getElementById('jotform-submit-target');
+      var form = document.getElementById('261402356192351');
+      if (!submitTarget || !form) return;
+
+      var formSubmitted = false;
+
+      form.addEventListener('submit', function () {
+        formSubmitted = true;
+      });
+
+      submitTarget.addEventListener('load', function () {
+        if (!formSubmitted) return;
+        setTimeout(showThankYou, 300);
+      });
+    });
+
+    // JotForm postMessage fallback
     window.addEventListener('message', function (e) {
       if (!e.data || typeof e.data !== 'object') return;
       if (e.data.action === 'submission-completed' || e.data.action === 'thankYou') {
@@ -892,22 +914,12 @@
     });
 
     // ============================================================
-    // VALIDATION + SUBMISSION DETECTION (combined in one load block)
+    // PRE-SUBMIT VALIDATION
     // ============================================================
     window.addEventListener('load', function () {
-      var submitTarget = document.getElementById('jotform-submit-target');
       var form = document.getElementById('261402356192351');
-      if (!submitTarget || !form) return;
+      if (!form) return;
 
-      var formSubmitted = false;
-
-      // Hidden iframe fires after JotForm posts — show thank you
-      submitTarget.addEventListener('load', function () {
-        if (!formSubmitted) return;
-        setTimeout(showThankYou, 300);
-      });
-
-      // Override onsubmit — validates, then sets formSubmitted = true before returning
       form.onsubmit = function (e) {
         var errors = false;
         var requiredFields = ['first_1', 'last_1', 'input_2'];
@@ -948,14 +960,11 @@
           return false;
         }
 
-        // Validation passed — flag must be set synchronously before form posts
-        formSubmitted = true;
-
         if (typeof testSubmitFunction !== 'undefined') return testSubmitFunction();
         return true;
       };
 
-      // Clear text field errors on input
+      // Clear field errors on input
       var fields = ['first_1', 'last_1', 'input_2'];
       for (var i = 0; i < fields.length; i++) {
         (function (id) {
@@ -976,7 +985,6 @@
         })(fields[i]);
       }
 
-      // Clear checkbox error on change
       var cb = document.getElementById('input_21_0');
       if (cb) {
         cb.addEventListener('change', function () {
